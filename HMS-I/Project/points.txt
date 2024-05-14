@@ -1,0 +1,73 @@
+signup
+user name(full)
+address
+phn number
+gender
+email id
+password
+confirm password
+
+
+admin
+patient
+reception
+nurse
+staff??
+
+
+
+patient-
+user name(full)
+address
+phn number
+gender
+email id
+password
+confirm password
+description(aba k problem bhaxa lekhna ko lai)
+medical history
+lab reports(how)
+session handle
+update password xutai part
+update ra signup ko lai xutaai baanaaunaa parxa hola
+
+dashboard
+login 
+signup----doctor
+	--patient
+	--staff
+	--nurse
+
+
+doctor--
+login 
+sign up
+	fname
+	lname 
+	address
+	phn number
+	gender
+	email id
+	password
+	confirm password
+
+update form 
+	certificates
+	
+	  
+	
+
+
+nurse
+patient name
+age
+prescription
+medical history
+aaction----
+
+
+
+admin
+role
+
+
