@@ -67,6 +67,7 @@
       <th>Gender</th>
       <th>Age</th>
       <th>Email</th>
+      <th>Img</th>
       <th>Action</th>
       
     </tr>
@@ -82,6 +83,9 @@
         <td>{{ $nurses->gender }}</td>
         <td>{{ $nurses->age }}</td>
         <td>{{ $nurses->email }}</td>
+        <td>
+          <img src="{{ asset($nurses->img1)}}" style="width: 70px; height: 70px;" alt="Img not aviable" />
+</td>
         <td>
           <a href="{{url('/nurse/delete/')}}/{{$nurses->nr_id}} ">
           <button class="btn btn-danger">Delete</button>

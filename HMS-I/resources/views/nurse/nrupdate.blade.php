@@ -43,7 +43,7 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('nr.update',['id' => $nurse->nr_id])}}">
+    <form method="post" action="{{route('nr.update',['id' => $nurse->nr_id])}}" enctype="multipart/form-data">
         
     @csrf 
     <h1 >{{$title}} </h1>
@@ -116,7 +116,10 @@
                     </span>
             </div>
 
-   
+            <div>   
+    <label></label>
+    <input type="file" name="img1"class="form-control">
+</div>
 <div>
     <button type="submit" name="submit" class="btn btn-primary">Update</button>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\File;
 use App\Models\DoctorModel;
 use Illuminate\Http\Request;
 
@@ -32,6 +32,7 @@ class DocController extends Controller
         'email' => 'required',
         'password' => 'required |confirmed',
         'password_confirmation' => 'required ',
+        'img1' => 'nullable|mimes:png,jpeg,jpg,webp',
             ]);
         
 
@@ -40,6 +41,14 @@ class DocController extends Controller
         // echo"<pre>";
         // print_r($request->all());    
         $doctor  = new DoctorModel;
+        if($request->has('img1')){
+
+            $file = $request->file('img1');
+            $extn= $file->getClientOriginalExtension();
+            $filename = time().'DC.'.$extn;
+            $path ='upload/pacimg/';
+            $file->move($path,$filename);
+        }
         $doctor ->fname =$request['fname'];
         $doctor ->lname =$request['lname'];
         $doctor ->address =$request['address'];
@@ -49,6 +58,7 @@ class DocController extends Controller
         $doctor ->age =$request['age'];
         $doctor ->email =$request['email'];
         $doctor ->password =md5($request['password']);
+        $doctor->img1=$path.$filename;
         $doctor ->save();
         return redirect('/doctor/view');
 
@@ -64,9 +74,12 @@ class DocController extends Controller
 public function ddelete($id)
 {
     // Fetch the patient record(s) based on the provided ID
-    $doctor  = DoctorModel::where('dc_id', $id)->get();
+    $doctor  = DoctorModel::where('dc_id', $id)->first();
     if (!is_null($doctor )){
-        $patient = DoctorModel::where('dc_id', $id)->delete();
+        if(File::exists($doctor->img1)){
+            File::delete($doctor->img1);
+        } 
+        $doctor = DoctorModel::where('dc_id', $id)->delete();
     }
 
     return redirect('/doctor/view');
@@ -93,7 +106,19 @@ public function dedit($id){
 public function dupdate(Request $request , $id){
     //$patient = Patientacc::where('pa_id', $id)->first();
    //dd($patient);
+ 
    $doctor  = DoctorModel::find($id);
+   if($request->has('img1')){
+
+    $file = $request->file('img1');
+    $extn= $file->getClientOriginalExtension();
+    $filename = time().'DC.'.$extn;
+    $path ='upload/pacimg/';
+    $file->move($path,$filename);
+    if(File::exists($doctor->img1)){
+        File::delete($doctor->img1);
+    }
+}
    
     $doctor ->fname =$request['fname'];
     $doctor ->lname =$request['lname'];
@@ -103,6 +128,8 @@ public function dupdate(Request $request , $id){
     $doctor ->gender =$request['gender'];
     $doctor ->age =$request['age'];
     $doctor ->email =$request['email'];
+    $doctor ->password =md5($request['password']);
+    $doctor->img1=$path.$filename;
     $doctor ->save();
     return redirect('/doctor/view');
 

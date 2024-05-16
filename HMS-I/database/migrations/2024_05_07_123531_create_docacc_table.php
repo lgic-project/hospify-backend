@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('age');
             $table->string('email',100)->unique();
             $table->string('password');
+            $table->string('img1');
             $table->rememberToken();   
             $table->timestamps();
         });

@@ -43,10 +43,10 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('nr.save')}}">
+    <form method="post" action="{{route('nr.save')}}" enctype="multipart/form-data">
         
     @csrf 
-    <h1 >Nurse registration </h1>
+    <h1 >Nurse registration hii</h1>
     <div class="form-group">
     
 
@@ -115,6 +115,11 @@
                         @enderror
                     </span>
             </div>
+            <div>   
+    <label></label>
+    <input type="file" name="img1"class="form-control">
+</div>
+   
 
    
 <div>

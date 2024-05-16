@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Patient View</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,7 +25,7 @@
         </a></div>
     <div >
         <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> patients</button>
+        <button class="btn btn-primary"> Patients</button>
         </a>
     </div> 
     
@@ -58,8 +58,10 @@
         <button class="btn btn-primary"> Add Customers</button>
         </a></div>
     <div >
+    
       <div class="container">
       <table class="table">
+        
   <thead>
     <tr>
       <th>FName</th>
@@ -70,10 +72,11 @@
       <th>Phone number</th>
       <th>Gender</th>
       <th>Age</th>
-      <th>email</th>
-      <th>Action</th>
-      
+      <th>Email</th>
+      <th>Img</th>
+      <th>Action</th>  
     </tr>
+    
   </thead>
   <tbody>
   @foreach($patient as $patients)
@@ -87,6 +90,9 @@
         <td>{{ $patients->age }}</td>
         <td>{{ $patients->email }}</td>
         <td>
+          <img src="{{ asset($patients->img1)}}" style="width: 70px; height: 70px;" alt="Img not aviable" />
+        </td>
+        <td>
           <a href="{{url('/patient/delete/')}}/{{$patients->pa_id}} ">
           <button class="btn btn-danger">Delete</button>
         
@@ -96,9 +102,8 @@
           <button class="btn btn-primary">Edit</button>
         </a>
         </td>
-        
-        
-    </tr>
+      </tr>
+    
 @endforeach
 
     </tbody>

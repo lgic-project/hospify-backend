@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('email',100)->unique();
             $table->boolean('status');
             $table->string('password');
+            $table->string('img1');
             $table->rememberToken();   
             $table->timestamps();
         });

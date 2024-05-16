@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\PatientModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Resourses\Views\hm;
 
 class PatientController extends Controller
@@ -34,20 +35,22 @@ class PatientController extends Controller
         'password_confirmation' => 'required ',
         'img1' => 'nullable|mimes:png,jpeg,jpg,webp',
             ]);
-        if($request->has('img1')){
-
-            $file = $request->files('img1');
-            $extn= $file->getClientOriginalExtension();
-            $filename = time().'PA'.$extn;
-            $path ='upload/pacimg/';
-            $file->move($path,$filename);
-        }
+       
 
     }
     public function pastore(Request $request){
         // echo"<pre>";
-        // print_r($request->all());    
-        $patient = new PatientModel;
+        // print_r($request->all());   
+        $patient = new PatientModel; 
+        if($request->has('img1')){
+
+            $file = $request->file('img1');
+            $extn= $file->getClientOriginalExtension();
+            $filename = time().'PA.'.$extn;
+            $path ='upload/pacimg/';
+            $file->move($path,$filename);
+        }
+        
         $patient->fname =$request['fname'];
         $patient->lname =$request['lname'];
         $patient->address =$request['address'];
@@ -57,7 +60,7 @@ class PatientController extends Controller
         $patient->age =$request['age'];
         $patient->email =$request['email'];
         $patient->password =md5($request['password']);
-        $patient->img1=$request['img1'];
+        $patient->img1=$path.$filename;
         $patient->save();
         return redirect('/patient/view');
 
@@ -73,8 +76,11 @@ class PatientController extends Controller
 public function padelete($id)
 {
     // Fetch the patient record(s) based on the provided ID
-    $patient = PatientModel::where('pa_id', $id)->get();
+    $patient = PatientModel::where('pa_id', $id)->first();
     if (!is_null($patient)){
+        if(File::exists($patient->img1)){
+            File::delete($patient->img1);
+        } 
         $patient = PatientModel::where('pa_id', $id)->delete();
     }
 
@@ -99,7 +105,7 @@ public function paedit($id){
         // $patient = Patientacc::where('pa_id', $id)->delete();
     }
     else{
-        $title="Update  Patient";
+        $title="Update  Patient ";
         $url=url('/patient/update/')."/".$id;
         $data = compact('patient','url','title');
         return view('patient.paupdate')->with( $data);
@@ -111,6 +117,17 @@ public function paupdate(Request $request , $id){
     //$patient = Patientacc::where('pa_id', $id)->first();
    //dd($patient);
    $patient = PatientModel::find($id);
+   if($request->has('img1')){
+
+    $file = $request->file('img1');
+    $extn= $file->getClientOriginalExtension();
+    $filename = time().'PA.'.$extn;
+    $path ='upload/pacimg/';
+    $file->move($path,$filename);
+    if(File::exists($patient->img1)){
+        File::delete($patient->img1);
+    }
+}
    
     $patient->fname =$request['fname']; 
     $patient->lname =$request['lname'];
@@ -122,6 +139,8 @@ public function paupdate(Request $request , $id){
     $patient->age =$request['age'];
     $patient->email =$request['description'];
     $patient->mh =$request['mh'];
+    $patient->img1=$path.$filename;
+    $patient->password =md5($request['password']);
     $patient->status =$request['status'];
     $patient->save();
     return redirect('/patient/view');

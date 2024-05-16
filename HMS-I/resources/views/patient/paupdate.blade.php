@@ -46,13 +46,13 @@
     <form method="post" action="{{route('pa.update',['id' => $patient->pa_id])}}" enctype="multipart/form-data">
         
     @csrf 
-    <h1 >Update  Patient </h1>
+    <h1 >Update  Patient hii</h1>
     <div class="form-group">
     
 
     <div class="form-grop">
        
-    <label for="fname">fisrt-naame</label>
+    <label for="fname">fisrt-name</label>
                 <input id="" class="block mt-1 w-full" type="text" name="fname" value="{{old('fname', $patient->fname)}}" >
             </div>
             <div>
@@ -89,14 +89,14 @@
                 <label for="age">Age</label>
                 <input id="" class="block mt-1 w-full" type="number" name="age" value="{{old('age', $patient->age)}}" required autofocus autocomplete="age">
             </div>
+            <div>
+                <label for="description" >Description</label>
+                <input id="" class="block mt-1 w-full" type="text" name="description" value="{{old('description', $patient->description)}}" required autofocus autocomplete="address" >
+            </div>
 
             <div class="mt-4">
                 <label for="email" >Email</label>
                 <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{old('email', $patient->email)}}" required autocomplete="username" >
-            </div>
-            <div>
-                <label for="description" >Description</label>
-                <input id="" class="block mt-1 w-full" type="text" name="description" value="{{old('description', $patient->description)}}" required autofocus autocomplete="address" >
             </div>
            
 
@@ -120,7 +120,10 @@
                         @enderror
                     </span>
             </div>
-          
+            <div>   
+    <label></label>
+    <input type="file" name="img1"class="form-control">
+</div>
 
    
 <div>

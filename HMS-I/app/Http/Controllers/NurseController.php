@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NurseModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 class NurseController extends Controller
 {
     public function index(){
@@ -32,6 +32,7 @@ class NurseController extends Controller
         'email' => 'required',
         'password' => 'required |confirmed',
         'password_confirmation' => 'required ',
+        'img1' => 'nullable|mimes:png,jpeg,jpg,webp',
             ]);
         
 
@@ -40,6 +41,14 @@ class NurseController extends Controller
         // echo"<pre>";
         // print_r($request->all());    
         $nurse  = new NurseModel;
+        if($request->has('img1')){
+
+            $file = $request->file('img1');
+            $extn= $file->getClientOriginalExtension();
+            $filename = time().'NR.'.$extn;
+            $path ='upload/pacimg/';
+            $file->move($path,$filename);
+        }
         $nurse ->fname =$request['fname'];
         $nurse ->lname =$request['lname'];
         $nurse ->address =$request['address'];
@@ -49,6 +58,7 @@ class NurseController extends Controller
         $nurse ->age =$request['age'];
         $nurse ->email =$request['email'];
         $nurse ->password =md5($request['password']);
+        $nurse->img1=$path.$filename;
         $nurse ->save();
         return redirect('/nurse/view');
 
@@ -64,8 +74,11 @@ class NurseController extends Controller
 public function ndelete($id)
 {
     // Fetch the patient record(s) based on the provided ID
-    $nurse  = NurseModel::where('nr_id', $id)->get();
+    $nurse  = NurseModel::where('nr_id', $id)->first();
     if (!is_null($nurse )){
+        if(File::exists($nurse->img1)){
+            File::delete($nurse->img1);
+        }
         $nurse = NurseModel::where('nr_id', $id)->delete();
     }
 
@@ -101,6 +114,17 @@ public function nupdate(Request $request , $id){
     //$patient = Patientacc::where('pa_id', $id)->first();
    //dd($patient);
    $nurse  = NurseModel::find($id);
+  
+   if($request->has('img1')){
+
+    $file = $request->file('img1');
+    $extn= $file->getClientOriginalExtension();
+    $filename = time().'PA.'.$extn;
+    $path ='upload/pacimg/';
+    $file->move($path,$filename);
+    if(File::exists($nurse->img1)){
+        File::delete($nurse->img1);
+    }
    
     $nurse ->fname =$request['fname'];
     $nurse ->lname =$request['lname'];
@@ -110,8 +134,11 @@ public function nupdate(Request $request , $id){
     $nurse ->gender =$request['gender'];
     $nurse ->age =$request['age'];
     $nurse ->email =$request['email'];
+    $nurse ->password =md5($request['password']);
+    $nurse->img1=$path.$filename;
     $nurse ->save();
     return redirect('/nurse/view');
 
+}
 }
 }

@@ -115,6 +115,10 @@
                         @enderror
                     </span>
             </div>
+            <div>   
+    <label></label>
+    <input type="file" name="img1"class="form-control">
+</div>
 
    
 <div>

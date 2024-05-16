@@ -21,6 +21,7 @@ class DoctorModel extends Model
         'age',
         'email',
         'password',
+        'img1'
         
     ];
 }
