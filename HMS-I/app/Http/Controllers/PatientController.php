@@ -4,10 +4,61 @@ namespace App\Http\Controllers;
 use App\Models\PatientModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\md5;
+use Illuminate\Support\Facades\Hash;
 use Resourses\Views\hm;
+use Illuminate\Support\Facades\Session;
 
 class PatientController extends Controller
 {
+    public function login(){
+        return view('loginform');
+    }
+    public function logina( Request $request){
+        //return('logged in');
+        $request->validate([
+            'email' =>'required|email',
+            'password' =>'required'
+        ]);
+          
+       //echo $request->email;
+      
+       //echo $request->password;
+        $patient =  PatientModel::where('email', '=', $request->email)->first();
+          if ($patient){
+             $hashedpword= md5($request->password); 
+               if($hashedpword === $patient->password){
+                $request->session()->put('LoginId', $patient->pa_id);
+                return redirect ('/log2');
+         
+               }
+               else{
+                   return  back()->with('fail','This incorrect password');
+               }
+           }
+           else {
+               return  back()->with('fail','This email is not registered.');
+          }
+    }
+    public function das2(){
+        //logged in dashboard
+        //$data=array();
+        $data = null;
+        if (Session::has('LoginId')){
+            $data  = PatientModel::where('pa_id' ,'=',Session::get('LoginId'))->first();
+        }
+       
+        return view ('das2',compact('data'));
+        // $tata =compact('data');
+        // return view ('das2')->with($tata);
+    }
+    public function logout(){
+        if (Session::has('LoginId')){
+            session::pull('LoginId');
+            return redirect ('/login');
+        }
+    }
+
     public function index(){
         return view('dashboard');
     }

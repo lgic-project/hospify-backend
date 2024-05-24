@@ -6,6 +6,11 @@ use App\Http\Controllers\NurseController;
 use Illuminate\Support\Facades\Route;
 use App\Models\PatientModel;
 
+
+route::get('/login',[PatientController::class,'login'])->name('login');
+route::post('/login',[PatientController::class,'logina'])->name('logina');
+route::get('/log2',[PatientController::class,'das2'])->name('das2');
+route::get('/logout',[PatientController::class,'logout'])->name('logout');
 route::get('/', [PatientController::class,'index'])->name('pa.home');
 route::get('/patient',[PatientController::class,'paform'])->name('pa.add');
 route::post('/paregister',[PatientController::class,'pastore'])->name('pa.save');

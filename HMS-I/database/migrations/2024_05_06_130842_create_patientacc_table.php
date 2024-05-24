@@ -20,12 +20,12 @@ return new class extends Migration
             $table->integer('pnm');
             $table->enum('gender',["M", "F" ,"O"]);
             $table->integer('age');
-            $table->integer('weight');
-            $table->text('mh');
+            $table->integer('weight')->nullable();
+            $table->text('mh')->nullable();
             $table->string('email',100)->unique();
             $table->boolean('status');
             $table->string('password');
-            $table->string('img1');
+            $table->string('img1')->nullable();
             $table->rememberToken();   
             $table->timestamps();
         });
