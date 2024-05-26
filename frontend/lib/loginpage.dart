@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'passwordresetpage.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,42 +30,55 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     if (_formKey.currentState?.validate() ?? false) {
-      
+      // Handle login logic
       String username = _usernameController.text;
       String password = _passwordController.text;
       print('Username: $username, Password: $password');
-      
+      // Add your login logic here
     }
+  }
+
+  void _navigateToResetPassword() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PasswordResetPage()),
+    );
+  }
+
+  void _loginWithGoogle() {
+    print('Login with Google');
+  }
+
+  void _loginWithApple() {
+    print('Login with Apple');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(  
-        child: SingleChildScrollView(  
+      appBar: AppBar(
+        title: Text('Login Page'),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   SizedBox(height: 1.0),
-                  Text(
-                    'Welcome',
-                    style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                   SizedBox(height: 1.0),
-               Image.asset('assets/image/logo.png', height: 300.0), 
-               SizedBox(height: 15.0),
-                  SizedBox(height: 20.0),
+                  Image.asset('assets/image/logo1.png', height: 300.0),
+                  SizedBox(height: 15.0),
                   TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                      labelText: 'Username',
-                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -78,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                     ),
                     obscureText: true,
                     validator: (value) {
@@ -95,6 +111,38 @@ class _LoginPageState extends State<LoginPage> {
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 16.0),
                     ),
+                  ),
+                  TextButton(
+                    onPressed: _navigateToResetPassword,
+                    child: Text('Forgot Password?'),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Or login with',
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: _loginWithGoogle,
+                        child: Image.asset(
+                          'assets/image/gmail.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      SizedBox(width: 20.0),
+                      GestureDetector(
+                        onTap: _loginWithApple,
+                        child: Image.asset(
+                          'assets/image/apple.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
