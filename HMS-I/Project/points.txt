@@ -1,0 +1,104 @@
+
+{Afno profile update garn milni ani patient ko chai nursse ra doc le edit garna milni}
+--{medical report
+   prescription}
+
+reference ko  lai role id banayera  use garna milxa
+
+medical report lai paxi medical history banauni 
+patient le afno medical history edit garna namilni
+sab ko lai xuttai dash board
+department
+
+
+signup
+user name(full)
+address
+phn number
+gender
+email id
+password
+confirm password
+
+
+admin
+patient
+reception
+nurse
+staff??
+
+
+
+patient-
+user name(full)
+address
+phn number
+gender
+email id
+password
+confirm password
+description(aba k problem bhaxa lekhna ko lai)
+weight{----nurse/doc le matra update garna milni///2 update forms) 
+medical history
+lab reports(how)
+medical report
+in/out patient status
+session handle
+session bata medical history
+update password xutai part
+update ra signup ko lai xutaai baanaaunaa parxa hola
+
+xuttai role ko lai xuttai roting for updating patient info
+dashboard
+login 
+signup----doctor
+	--patient
+	--staff
+	--nurse
+
+
+doctor--
+login 
+sign up
+	fname
+	lname 
+	address
+	phn number
+	gender
+	email id
+	password
+	confirm password
+
+update form 
+	join date
+	certificates
+	speciality
+	ward?
+	pw haru baki xa
+	  
+	
+
+
+nurse
+fname
+	lname 
+	address
+	phn number
+	gender
+	email id
+	password
+	confirm password
+	patient name(view)
+	age(view)
+	prescription(view)
+	medical history(view)
+	action----
+
+appoinment--
+	date
+	time
+
+admin
+role
+
+
