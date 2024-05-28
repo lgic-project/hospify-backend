@@ -23,9 +23,10 @@ return new class extends Migration
             $table->integer('weight')->nullable();
             $table->text('mh')->nullable();
             $table->string('email',100)->unique();
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->string('password');
             $table->string('img1')->nullable();
+            $table->string('role',20);
             $table->rememberToken();   
             $table->timestamps();
         });

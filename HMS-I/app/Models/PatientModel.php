@@ -23,7 +23,8 @@ class PatientModel extends Model
         'email',
         'password',
         'img1',
-        'dis'
+        'dis',
+        'role',
         
     ];
 }

@@ -20,7 +20,8 @@ class NurseModel extends Model
         'age',
         'email',
         'password',
-        'img1'
+        'img1',
+        'role',
         
     ];
 }

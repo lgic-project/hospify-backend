@@ -59,6 +59,7 @@ class DocController extends Controller
         $doctor ->email =$request['email'];
         $doctor ->password =md5($request['password']);
         $doctor->img1=$path.$filename;
+        $doctor->role =$request['role'];
         $doctor ->save();
         return redirect('/doctor/view');
 
@@ -129,7 +130,8 @@ public function dupdate(Request $request , $id){
     $doctor ->age =$request['age'];
     $doctor ->email =$request['email'];
     $doctor ->password =md5($request['password']);
-    $doctor->img1=$path.$filename;
+    $doctor->img1=$path.$filename; 
+    
     $doctor ->save();
     return redirect('/doctor/view');
 

@@ -59,6 +59,7 @@ class NurseController extends Controller
         $nurse ->email =$request['email'];
         $nurse ->password =md5($request['password']);
         $nurse->img1=$path.$filename;
+        $nurse ->role =$request['role'];
         $nurse ->save();
         return redirect('/nurse/view');
 
@@ -136,6 +137,7 @@ public function nupdate(Request $request , $id){
     $nurse ->email =$request['email'];
     $nurse ->password =md5($request['password']);
     $nurse->img1=$path.$filename;
+    
     $nurse ->save();
     return redirect('/nurse/view');
 
