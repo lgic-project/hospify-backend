@@ -2,7 +2,7 @@
 {Afno profile update garn milni ani patient ko chai nursse ra doc le edit garna milni}
 --{medical report
    prescription}
-
+id ko based ma view function add garni
 role ko form  ma value lai fix garni
 reference ko  lai role id banayera  use garna milxa
 
