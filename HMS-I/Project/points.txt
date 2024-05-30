@@ -2,7 +2,8 @@
 {Afno profile update garn milni ani patient ko chai nursse ra doc le edit garna milni}
 --{medical report
    prescription}
-
+id ko based ma view function add garni
+role ko form  ma value lai fix garni
 reference ko  lai role id banayera  use garna milxa
 
 medical report lai paxi medical history banauni 
@@ -10,6 +11,9 @@ patient le afno medical history edit garna namilni
 sab ko lai xuttai dash board
 department
 
+checkedd by ma doctor name rakhni?
+
+about us ma hospital ko barey?
 
 signup
 user name(full)
@@ -100,5 +104,15 @@ appoinment--
 
 admin
 role
+
+
+
+
+
+
+
+
+
+
 
 

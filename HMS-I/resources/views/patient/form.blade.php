@@ -119,6 +119,14 @@
     <label></label>
     <input type="file" name="img1"class="form-control">
 </div>
+<div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" id="role" name="role" required>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Patient">Patient</option>
+            </select>
+        </div>
    
 <div>
     <button type="submit" name="submit" class="btn btn-primary">Submit</button>

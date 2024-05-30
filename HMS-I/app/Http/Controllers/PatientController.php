@@ -112,6 +112,7 @@ class PatientController extends Controller
         $patient->email =$request['email'];
         $patient->password =md5($request['password']);
         $patient->img1=$path.$filename;
+        $patient->role =$request['role'];
         $patient->save();
         return redirect('/patient/view');
 
