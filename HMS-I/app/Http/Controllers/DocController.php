@@ -10,7 +10,7 @@ class DocController extends Controller
     public function index(){
         return view('dashboard');
     }
-    public function dform(){
+    public function dcform(){
         //create
         // $url = url('/register');
         // $doctor = new DoctorModel();
