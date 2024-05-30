@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/dashboardpage.dart';
 import 'passwordresetpage.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       String username = _usernameController.text;
       String password = _passwordController.text;
       print('Username: $username, Password: $password');
-      // Add your login logic here
+      Navigator.pushReplacement((context), MaterialPageRoute(builder: (context)=>DashboardPage()));
     }
   }
 

@@ -6,7 +6,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Center( 
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(16.0),

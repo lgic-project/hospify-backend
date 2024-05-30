@@ -66,6 +66,13 @@ flutter:
   - assets/image/apple.png
   - assets/image/gmail.png
   - assets/image/registration.png
+  - assets/image/doctor.jpg
+  - assets/image/doctor1.jpg
+  - assets/image/doctor2.jpg
+  - assets/image/doctor3.jpg
+  - assets/image/doctor4.jpg
+  - assets/image/doctor5.jpg
+  
 
   #   - images/a_dot_ham.jpeg
 
