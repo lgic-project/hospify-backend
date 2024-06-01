@@ -15,13 +15,17 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get("index",[PatientController::class,'index']);
+Route::get("index",[PatientapiController::class,'index']);
 Route::get("paview",[PatientApiController::class,'paview']);
 Route::get("paview-detail/{id}",[PatientApiController::class,'paviewed']); //viewed lai viewid banauni
-Route::post("paregister",[PatientApiController::class,'pastore']);  
+Route::get("paup/{id}",[PatientApiController::class,'paup']);
+Route::post("paregister",[PatientApiController::class,'pastore']);
+Route::post("paupdate/{id}",[PatientApiController::class,'paupdate'])->name('pa.update.api');   
+
 
 
 Route::post("dcregister",[DoctorApiController::class,'dcstore']);
+Route::post("dcupdate/{id}",[DoctorApiController::class,'dcupdate']);
 Route::get("dcview",[DoctorApiController::class,'dcview']);
 Route::get("dcview-detail/{id}",[DoctorApiController::class,'dcviewed']);   
 

@@ -41,14 +41,14 @@ class NurseController extends Controller
         // echo"<pre>";
         // print_r($request->all());    
         $nurse  = new NurseModel;
-        if($request->has('img1')){
+        // if($request->has('img1')){
 
-            $file = $request->file('img1');
-            $extn= $file->getClientOriginalExtension();
-            $filename = time().'NR.'.$extn;
-            $path ='upload/pacimg/';
-            $file->move($path,$filename);
-        }
+        //     $file = $request->file('img1');
+        //     $extn= $file->getClientOriginalExtension();
+        //     $filename = time().'NR.'.$extn;
+        //     $path ='upload/pacimg/';
+        //     $file->move($path,$filename);
+        // }
         $nurse ->fname =$request['fname'];
         $nurse ->lname =$request['lname'];
         $nurse ->address =$request['address'];
@@ -58,7 +58,7 @@ class NurseController extends Controller
         $nurse ->age =$request['age'];
         $nurse ->email =$request['email'];
         $nurse ->password =md5($request['password']);
-        $nurse->img1=$path.$filename;
+        //$nurse->img1=$path.$filename;
         $nurse ->role =$request['role'];
         $nurse ->save();
         return redirect('/nurse/view');
@@ -112,20 +112,19 @@ public function nedit($id){
 
 }
 public function nupdate(Request $request , $id){
-    //$patient = Patientacc::where('pa_id', $id)->first();
-   //dd($patient);
+    
    $nurse  = NurseModel::find($id);
   
-   if($request->has('img1')){
+//    if($request->has('img1')){
 
-    $file = $request->file('img1');
-    $extn= $file->getClientOriginalExtension();
-    $filename = time().'PA.'.$extn;
-    $path ='upload/pacimg/';
-    $file->move($path,$filename);
-    if(File::exists($nurse->img1)){
-        File::delete($nurse->img1);
-    }
+//     $file = $request->file('img1');
+//     $extn= $file->getClientOriginalExtension();
+//     $filename = time().'NR.'.$extn;
+//     $path ='upload/pacimg/';
+//     $file->move($path,$filename);
+//     if(File::exists($nurse->img1)){
+//         File::delete($nurse->img1);
+//     }
    
     $nurse ->fname =$request['fname'];
     $nurse ->lname =$request['lname'];
@@ -136,11 +135,10 @@ public function nupdate(Request $request , $id){
     $nurse ->age =$request['age'];
     $nurse ->email =$request['email'];
     $nurse ->password =md5($request['password']);
-    $nurse->img1=$path.$filename;
+    //$nurse->img1=$path.$filename;
     
     $nurse ->save();
     return redirect('/nurse/view');
 
-}
 }
 }

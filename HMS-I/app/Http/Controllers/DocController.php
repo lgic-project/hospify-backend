@@ -41,14 +41,14 @@ class DocController extends Controller
         // echo"<pre>";
         // print_r($request->all());    
         $doctor  = new DoctorModel;
-        if($request->has('img1')){
+        // if($request->has('img1')){
 
-            $file = $request->file('img1');
-            $extn= $file->getClientOriginalExtension();
-            $filename = time().'DC.'.$extn;
-            $path ='upload/pacimg/';
-            $file->move($path,$filename);
-        }
+        //     $file = $request->file('img1');
+        //     $extn= $file->getClientOriginalExtension();
+        //     $filename = time().'DC.'.$extn;
+        //     $path ='upload/pacimg/';
+        //     $file->move($path,$filename);
+        // }
         $doctor ->fname =$request['fname'];
         $doctor ->lname =$request['lname'];
         $doctor ->address =$request['address'];
@@ -58,7 +58,7 @@ class DocController extends Controller
         $doctor ->age =$request['age'];
         $doctor ->email =$request['email'];
         $doctor ->password =md5($request['password']);
-        $doctor->img1=$path.$filename;
+        //$doctor->img1=$path.$filename;
         $doctor->role =$request['role'];
         $doctor ->save();
         return redirect('/doctor/view');
@@ -109,17 +109,17 @@ public function dupdate(Request $request , $id){
    //dd($patient);
  
    $doctor  = DoctorModel::find($id);
-   if($request->has('img1')){
+//    if($request->has('img1')){
 
-    $file = $request->file('img1');
-    $extn= $file->getClientOriginalExtension();
-    $filename = time().'DC.'.$extn;
-    $path ='upload/pacimg/';
-    $file->move($path,$filename);
-    if(File::exists($doctor->img1)){
-        File::delete($doctor->img1);
-    }
-}
+//     $file = $request->file('img1');
+//     $extn= $file->getClientOriginalExtension();
+//     $filename = time().'DC.'.$extn;
+//     $path ='upload/pacimg/';
+//     $file->move($path,$filename);
+//     if(File::exists($doctor->img1)){
+//         File::delete($doctor->img1);
+//     }
+// }
    
     $doctor ->fname =$request['fname'];
     $doctor ->lname =$request['lname'];
@@ -130,7 +130,7 @@ public function dupdate(Request $request , $id){
     $doctor ->age =$request['age'];
     $doctor ->email =$request['email'];
     $doctor ->password =md5($request['password']);
-    $doctor->img1=$path.$filename; 
+   // $doctor->img1=$path.$filename; 
     
     $doctor ->save();
     return redirect('/doctor/view');

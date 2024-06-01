@@ -22,8 +22,10 @@ return new class extends Migration
             $table->integer('age');
             $table->string('email',100)->unique();
             $table->string('password');
-            $table->string('img1');
-            $table->string('role',20);
+            $table->string('img1')->nullable();
+            $table->string('role',20)->nullable();
+            $table->unsignedBigInteger('dpt_id')->nullable();
+            $table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp');
             $table->rememberToken();   
             $table->timestamps();
         });

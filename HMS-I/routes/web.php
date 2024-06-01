@@ -3,8 +3,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
-use App\Models\PatientModel;
+
 
 
 
@@ -20,6 +21,14 @@ route::post('/auth',[AuthController::class,'authlogina'])->name('authlogina');
 
 //Route::group(['middleware'=> ['Patient']], function () {});
     
+route::get('/department',[DepartmentController::class,'index'])->name('dt.add');
+route::post('/dptregister',[DepartmentController::class,'dptstore'])->name('dt.save');
+route::get('/dpt/view',[DepartmentController::class,'dtview'])->name('dt.view');
+route::get('/dpt/edit/{id}',[DepartmentController::class,'dtedit'])->name('dt.edit'); 
+route::get('/dpt/delete/{id}',[DepartmentController::class,'dtdelete'])->name('dt.delete'); 
+route::post('/dpt/update/{id}',[DepartmentController::class,'dtupdate'])->name('dt.update'); 
+
+
 
 route::get('/patient',[PatientController::class,'paform'])->name('pa.add');
 route::post('/paregister',[PatientController::class,'pastore'])->name('pa.save');
@@ -33,7 +42,7 @@ route::get('/patient/delete/{id}',[PatientController::class,'padelete'])->name('
 //Route::group(['middleware' => ['Doctor']], function () {});
     
 
-route::get('/doctor',[DocController::class,'dform'])->name('dc.add');
+route::get('/doctor',[DocController::class,'dcform'])->name('dc.add');
 route::post('/dcregister',[DocController::class,'dstore'])->name('dc.save');
 route::post('/dcdoctor', [DocController::class,'dstore']);
 route::get('/doctor/view', [DocController::class,'dview'])->name('dc.view');

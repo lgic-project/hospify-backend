@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\File;
 use App\Http\Controllers\md5;
 use Illuminate\Support\Facades\Hash;
 use Resourses\Views\hm;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\DepartmentModel;
 class PatientController extends Controller
 {
     public function login(){
@@ -93,14 +94,14 @@ class PatientController extends Controller
         // echo"<pre>";
         // print_r($request->all());   
         $patient = new PatientModel; 
-        if($request->has('img1')){
+        // if($request->has('img1')){
 
-            $file = $request->file('img1');
-            $extn= $file->getClientOriginalExtension();
-            $filename = time().'PA.'.$extn;
-            $path ='upload/pacimg/';
-            $file->move($path,$filename);
-        }
+        //     $file = $request->file('img1');
+        //     $extn= $file->getClientOriginalExtension();
+        //     $filename = time().'PA.'.$extn;
+        //     $path ='upload/pacimg/';
+        //     $file->move($path,$filename);
+        // }
         
         $patient->fname =$request['fname'];
         $patient->lname =$request['lname'];
@@ -111,7 +112,7 @@ class PatientController extends Controller
         $patient->age =$request['age'];
         $patient->email =$request['email'];
         $patient->password =md5($request['password']);
-        $patient->img1=$path.$filename;
+       // $patient->img1=$path.$filename;
         $patient->role =$request['role'];
         $patient->save();
         return redirect('/patient/view');
@@ -152,6 +153,8 @@ public function padelete($id)
 public function paedit($id){
     //$patient=Patientacc::find($id);
      $patient = PatientModel::where('pa_id', $id)->first();
+    $dpt =  DepartmentModel::all();
+    
     if (is_null($patient)){
         return redirect('/patient/view');
         // $patient = Patientacc::where('pa_id', $id)->delete();
@@ -159,28 +162,36 @@ public function paedit($id){
     else{
         $title="Update  Patient ";
         $url=url('/patient/update/')."/".$id;
-        $data = compact('patient','url','title');
-        return view('patient.paupdate')->with( $data);
+        $data = compact('patient','url','title','dpt');
+       return view('patient.paupdate')->with( $data);
         
-    }
-
-} 
+    } }
+    // public function dtview2(){
+    //     $dpt =  DepartmentModel::all();
+        
+    //     $data = compact('dpt');
+    //     return view ('patient.paupdate')->with($data);
+       
+         
+    // }
+ 
 public function paupdate(Request $request , $id){
     //$patient = Patientacc::where('pa_id', $id)->first();
    //dd($patient);
    $patient = PatientModel::find($id);
-   if($request->has('img1')){
+//    if($request->has('img1')){
 
-    $file = $request->file('img1');
-    $extn= $file->getClientOriginalExtension();
-    $filename = time().'PA.'.$extn;
-    $path ='upload/pacimg/';
-    $file->move($path,$filename);
-    if(File::exists($patient->img1)){
-        File::delete($patient->img1);
-    }
-}
-   
+//     $file = $request->file('img1');
+//     $extn= $file->getClientOriginalExtension();
+//     $filename = time().'PA.'.$extn;
+//     $path ='upload/pacimg/';
+//     $file->move($path,$filename);
+//     if(File::exists($patient->img1)){
+//         File::delete($patient->img1);
+//     }
+//}
+   if($patient){
+    Log::info('Patient found: ' . $patient->pa_id);
     $patient->fname =$request['fname']; 
     $patient->lname =$request['lname'];
     $patient->address =$request['address'];
@@ -191,11 +202,18 @@ public function paupdate(Request $request , $id){
     $patient->age =$request['age'];
     $patient->email =$request['description'];
     $patient->mh =$request['mh'];
-    $patient->img1=$path.$filename;
+    $patient->dpt_id =$request['dt-id'];
+   // $patient->img1=$path.$filename;
     $patient->password =md5($request['password']);
     $patient->status =$request['status'];
     $patient->save();
-    return redirect('/patient/view');
+    
+   // return redirect('/patient/view');
+   return redirect('/patient/view')->with('success', 'Patient updated successfully');
+    } else {
+        Log::info('Patient not found: ' . $id);
+        return redirect('/patient/view')->with('error', 'Patient not found');
+    }
 
 }
 }

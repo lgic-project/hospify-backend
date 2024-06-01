@@ -26,7 +26,9 @@ return new class extends Migration
             $table->boolean('status')->nullable();
             $table->string('password');
             $table->string('img1')->nullable();
-            $table->string('role',20);
+            $table->string('role',20)->nullable();
+            $table->unsignedBigInteger('dpt_id');
+            $table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp');
             $table->rememberToken();   
             $table->timestamps();
         });

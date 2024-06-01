@@ -43,10 +43,11 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('pa.update',['id' => $patient->pa_id])}}" enctype="multipart/form-data">
-        
+     <!-- <form method="post" action="{{route('pa.update.api',['id' => $patient->pa_id])}}" enctype="multipart/form-data"> -->
+         
+         <form method="post" action="{{ url('/patient/update/'. $patient->pa_id)}}" enctype="multipart/form-data">
     @csrf 
-    <h1 >Update  Patient hii</h1>
+    <h1 >Update  Patient </h1>
     <div class="form-group">
     
 
@@ -103,25 +104,25 @@
             <div class="mt-4"> 
                 <label for="password" value="" >Password</label>
                 <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="password">
-                    <span class="text-danger">
-                        @error('password')
-                        {{$message}}
-                        @enderror
-                    </span>
+                    
             </div>
 
             <div class="mt-4">
                 <label for="password_confirmation" value="">Confirm Password</label>
                 <input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="password_confirmation" >
-                <span>
-                    
-                        @error('password_confirmation')
-                        {{$message}}
-                        @enderror
-                    </span>
+              
             </div>
+            <div class="form-group">
+            <label> Select Department</label>
+                <select class="form-control" name="dt-id" >
+                    @foreach ($dpt as $dp )
+                    <option value="{{ $dp->dpt_id}}">{{$dp->dpt_name}}</option>
+                    
+                    @endforeach
+                </select>
+            </div>
+            
             <div>   
-    <label></label>
     <input type="file" name="img1"class="form-control">
 </div>
 
