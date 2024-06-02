@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('img1')->nullable();
             $table->string('role',20)->nullable();
-            $table->unsignedBigInteger('dpt_id')->nullable();
+            $table->unsignedBigInteger('dpt_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp');
             $table->rememberToken();   
             $table->timestamps();
