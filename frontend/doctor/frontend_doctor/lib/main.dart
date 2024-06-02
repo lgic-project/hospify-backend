@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/dccontroller.dart';
+import 'package:frontend/controller/padetails.dart';
+import 'package:frontend/dashboardpage.dart';
+import 'package:frontend/views/v1.dart';
 import 'package:frontend/welcomepage.dart';
+import 'package:provider/provider.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -7,12 +13,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hospital Management System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => GetDataProvider()),
+        ChangeNotifierProvider(create: (ctx) => DocDataProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Hospital Management System',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: DashboardPage(),
       ),
-      home: WelcomePage(),
     );
   }
 }
@@ -28,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
