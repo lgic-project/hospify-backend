@@ -79,7 +79,7 @@ update form
 	speciality
 	ward?
 	pw haru baki xa
-	  
+	 qualifications
 	
 
 
