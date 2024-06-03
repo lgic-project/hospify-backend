@@ -11,6 +11,11 @@ class AppointmentController extends Controller
     public function index(){
         return view ('appointment.index');
     }
+    public function form()
+    {
+      return view ('appointment.scform');
+    }
+
 
     public function search(){
         $doctor = DoctorModel::all();
@@ -28,8 +33,10 @@ class AppointmentController extends Controller
     return ('successfull');
  }
  public function view(){
-    $appt = AppointmentModel::all();
-    $data = compact('appt');
-    return view('appointment.appt-view')->with($data);
+   //  $appt = AppointmentModel::all();
+   //  $data = compact('appt','doc','pa');
+   //  return view('appointment.appt-view')->with($data);
+   $appt = AppointmentModel::with(['doctor', 'patient'])->get();
+   return view('appointment.appt-view', compact('appt'));
  }
 }

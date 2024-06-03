@@ -68,13 +68,13 @@
        
     </tr>
     
-  </thead>
+  </thead> 
   <tbody>
-  @foreach($appt as $ss)
+  @foreach($appt as $ss )
     <tr>
         <td>{{ $ss->apt }}</td>
-        <td>{{ $ss->dc_id }}</td>
-        <td>{{ $ss->pa_id }}</td>
+        <td>{{ $ss->doctor->fname }}</td>
+        <td>{{ $ss->patient->fname }}</td>
       
        
       </tr>
