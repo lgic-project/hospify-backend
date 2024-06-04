@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PatientApiController;
 use App\Http\Controllers\API\DoctorApiController;
 use App\Http\Controllers\API\NurseApiController;
-
+use App\Http\Controllers\API\SchApiController;
 //next migration ma img lai nullable banauni
 
 use App\Http\Controllers\DocController;
@@ -32,3 +32,6 @@ Route::get("dcview-detail/{id}",[DoctorApiController::class,'dcviewed']);
 Route::post("nrregister",[NurseApiController::class,'nrstore']);//error aye pani data janxa error ayo bhanw data save nahuni bananuni
 Route::get("nrview",[NurseApiController::class,'nrview']);
 Route::get("nrview-detail/{id}",[NurseApiController::class,'nrviewed']);
+
+Route::get("schview",[SchApiController::class,'scview']);
+Route::post("schb",[SchApiController::class,'scb']);//book appointment api

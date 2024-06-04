@@ -27,4 +27,7 @@ class PatientModel extends Model
         'role',
         
     ];
+    public function appointments() {
+        return $this->hasMany(AppointmentModel::class, 'patient_id');
+    }
 }
