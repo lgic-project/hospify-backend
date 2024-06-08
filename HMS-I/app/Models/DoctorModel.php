@@ -23,9 +23,16 @@ class DoctorModel extends Model
         'password',
         'img1',
         'role',
+        'speciality',
+        'qual',
+        'starttime',
+        'endtime',  
         
     ];
     public function appointments() {
         return $this->hasMany(AppointmentModel::class, 'doctor_id');
+    }
+    public function review() {
+        return $this->hasMany(ReviewModel::class, 'doctor_id');
     }
 }

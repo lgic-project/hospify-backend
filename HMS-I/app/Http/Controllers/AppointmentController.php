@@ -5,7 +5,7 @@ use App\Models\PatientModel;
 use App\Models\AppointmentModel;
 use App\Models\DoctorModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class AppointmentController extends Controller
 {
     public function index(){
@@ -19,14 +19,42 @@ class AppointmentController extends Controller
 
     public function search(){
         $doctor = DoctorModel::all();
-        //$url=url('/patient/update/')."/".$id;
-        $data = compact('doctor');
+        $starttime = DoctorModel::where('dc_id', 1)->value('starttime');
+        $endtime = DoctorModel::where('dc_id', 1)->value('endtime');
+        $data = compact('doctor', 'starttime', 'endtime');
        return view('appointment.scform')->with( $data);
     }
 
+
+public function check(Request $request)
+{
+    $doctorId = $request->input('dc_id');
+    $date = $request->input('apt-date'); 
+    $formattedDate = date('Y-m-d', strtotime($date));
+
+    $bookedSlots = AppointmentModel::where('dc_id', $doctorId)
+        ->whereDate('aptdate', $formattedDate)
+        ->pluck('apttime')
+        ->toArray();
+
+    // Assuming starttime and endtime are in the same model or related model
+    $doctor = DoctorModel::find($doctorId);
+    $starttime = $doctor->starttime;
+    $endtime = $doctor->endtime;
+
+    return response()->json([
+        'bookedSlots' => $bookedSlots,
+        'starttime' => $starttime,
+        'endtime' => $endtime,
+    ]);
+}
+
+
+
  public function save(Request $request){
     $appt = new AppointmentModel;
-    $appt->apt =$request['apt'];
+    $appt->aptdate =$request['apt_date'];
+    $appt->apttime =$request['apt_time'];
     $appt->dc_id =$request['dc_id'];
     $appt->pa_id =$request['pa_id'];
     $appt->save();

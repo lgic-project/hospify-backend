@@ -12,7 +12,8 @@ class AppointmentModel extends Model
     protected $table = 'appointment';
     protected $primaryKey = 'apt_id';
     protected $fillable = [
-      'apt',
+      'aptdate',
+      'apttime',
       
         
     ];

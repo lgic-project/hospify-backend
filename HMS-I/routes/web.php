@@ -25,6 +25,7 @@ route::get('/schedule',[AppointmentController::class,'index'])->name('sc');
 route::get('/sc-search',[AppointmentController::class,'search'])->name('sc.search');
 //route::get('/sc-form',[AppointmentController::class,'form'])->name('sc.form');
 route::post('/sc-save',[AppointmentController::class,'save'])->name('sc.save');
+route::post('/sc-check',[AppointmentController::class,'check'])->name('sc.check');//doc schedule check garni
 route::get('/sc-view',[AppointmentController::class,'view'])->name('sc.view');
 
 
