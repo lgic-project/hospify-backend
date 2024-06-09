@@ -43,7 +43,7 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('logina')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('authlogina')}}" enctype="multipart/form-data">
         
     @csrf 
     <h1 >Login Page </h1>

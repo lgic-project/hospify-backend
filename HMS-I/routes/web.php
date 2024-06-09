@@ -17,6 +17,8 @@ route::get('/log2',[PatientController::class,'das2'])->name('das2');
 route::get('/logout',[PatientController::class,'logout'])->name('logout');
 route::get('/', [PatientController::class,'index'])->name('pa.home');
 
+
+
 route::get('/auth',[AuthController::class,'authlogin'])->name('authlogin');
 route::post('/auth',[AuthController::class,'authlogina'])->name('authlogina');
 
@@ -71,3 +73,4 @@ route::get('/nurse/view', [NurseController::class,'nview'])->name('nr.view');
 route::get('/nurse/edit/{id}',[NurseController::class,'nedit'])->name('nr.edit'); 
 route::post('/nurse/update/{id}',[NurseController::class,'nupdate'])->name('nr.update'); 
 route::get('/nurse/delete/{id}',[NurseController::class,'ndelete'])->name('nr.delete');
+
