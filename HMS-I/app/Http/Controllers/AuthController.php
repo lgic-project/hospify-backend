@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Http\Controllers\md5;
+
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Hash;
@@ -40,27 +40,7 @@ class AuthController extends Controller
             return view('loginform');  
         }
 
-        // public function authlogina( Request $request){
-
-        //     $request -> validate([
-        //         'email' => 'required| email',
-        //         'password' => 'required'
-        //     ]);
-        //     $usercred = $request-> only('email','password');
-        //     if(Auth::attempt($usercred)){
-        //         // $route = $this ->redirectDash();
-        //         // return redirect($route);
-        //         Log::info('Authentication successful for email: ' . $usercred['email']);
-        // $route = $this->redirectDash();
-        // Log::info('Redirect route: ' . $route);
-        // return redirect($route);
-        //     }
-        //     else{
-        //         Log::warning('Authentication failed for email: ' . $usercred['email']);
-        //         return back()->withInput()->withErrors(['error' => 'Invalid email or password.']);
-        //         //return back()-> with('error');
-        //     } 
-        // }
+       
 
         public function authlogina(Request $request)
         {
@@ -74,7 +54,9 @@ class AuthController extends Controller
             
            
             if (Auth::attempt($credentials)) {
-               
+                
+                session(['sname'=> Auth::user()->name]);
+                //session()->only(['sname'=> Auth::user()->name]);
                 $route = $this->redirectDash();
                
                 return redirect($route);
@@ -90,39 +72,30 @@ class AuthController extends Controller
         $route = $this->redirectDash();
         return redirect($route);
     }
-    // public function redirectDash(){
-    //     $redirect = '';
-    //     if(Auth::user() && Auth::user()->role == 'Doctor'){
-    //         $redirect = '/doctor/view';
-    //     }
-    //     else if(Auth::user() && Auth::user()->role == 'Nurse'){
-    //         $redirect = '/nurse/view';
-    //     }
-    //     else if (Auth::user() && Auth::user()->role == 'Patient'){
-    //         $redirect = '/patient/view';
-    //     }
-    //      return $redirect;
-    //}
+  
     public function redirectDash()
     {
-        $redirect = '';
-        if (Auth::user()) {
-            switch (Auth::user()->role) {
-                case 'Doctor':
-                    $redirect = '/doctordash';
-                    break;
-                case 'Nurse':
-                    $redirect = '/nurse/view';
-                    break;
-                case 'Patient':
-                    $redirect = '/patientdash';
-                    break;
-                default:
-                    // Handle default redirection
-                    break;
-            }
-        }
-        return view('auth.failed');
+        $redirect ='';
+         if (Auth::check()) {
+             $role = Auth::user()->role;
+         Log::info('User role: ' . $role);
+             switch (Auth::user()->role) {
+                 case 'Doctor':
+                     $redirect = '/doctordash';
+                     break;
+                 case 'Nurse':
+                     $redirect = '/nurse/view';
+                     break;
+                 case 'Patient':
+                     $redirect = '/patientdash';
+                     break;
+                 default:
+                     // Handle default redirection
+                     break;
+             }
+             return $redirect;
+         }
+         return view('auth.failed');
        
     }
     
