@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\DepartmentModel;
 class PatientController extends Controller
-{
+{ 
+    public function padash(){
+        return view('patient.pa-dash');
+    }
     public function login(){
         return view('loginform');
     }
@@ -101,7 +104,7 @@ class PatientController extends Controller
         //     $filename = time().'PA.'.$extn;
         //     $path ='upload/pacimg/';
         //     $file->move($path,$filename);
-        // }
+        // } 
         
         $patient->fname =$request['fname'];
         $patient->lname =$request['lname'];

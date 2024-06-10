@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\PatientModel;
-use App\Models\DoctorModel;
-use App\Models\NurseModel;
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\md5;
@@ -18,8 +17,12 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public function index(){
+        return view('auth.failed');
+    }
+    
     public function authlogin(){
-             return view('loginform');
+             return view('auth.authlog');
          }
         public function registered(){
            if(Auth::user()){
@@ -68,20 +71,18 @@ class AuthController extends Controller
             ]);
     
             $credentials = $request->only('email', 'password');
-            Log::info('Attempting authentication for email: ' . $credentials['email']);
-            // Attempt to authenticate the user
+            
+           
             if (Auth::attempt($credentials)) {
-                // Authentication successful, log and redirect
-                Log::info('Authentication successful for email: ' . $credentials['email']);
+               
                 $route = $this->redirectDash();
-                Log::info('Redirect route: ' . $route);
-                
+               
                 return redirect($route);
             } else {
                 // Authentication failed, log and redirect back with error
-                Log::warning('Authentication failed for email: ' . $credentials['email']);
-                dd(session()->all());
-                return back()->withInput()->withErrors(['error' => 'Invalid email or password.']);
+                Log::info('Authentication failed for email: ' . $credentials['email']);
+
+                return back()->withErrors(['error' => 'Invalid email or password.']);
             }
         }
     public function root(){
@@ -108,22 +109,40 @@ class AuthController extends Controller
         if (Auth::user()) {
             switch (Auth::user()->role) {
                 case 'Doctor':
-                    $redirect = '/doctor/view';
+                    $redirect = '/doctordash';
                     break;
                 case 'Nurse':
                     $redirect = '/nurse/view';
                     break;
                 case 'Patient':
-                    $redirect = '/patient/view';
+                    $redirect = '/patientdash';
                     break;
                 default:
                     // Handle default redirection
                     break;
             }
         }
-        return $redirect;
+        return view('auth.failed');
        
     }
     
+
+    public function authcrta(Request $request){
+        $request -> validate([
+            'email' => 'required| email',
+            'password' => 'required'
+        ]);
+     $crt = new user;
+     $crt->name = $request['name'];
+     $crt->email = $request['email'];
+     $crt->password = hash::make($request['password']);
+     $crt->role = $request['role'];
+     $crt->save();
+     return redirect('/auth');
+
+    }
+    public function authcrt(){
+        return view('auth.authcreate');
+    }
 
 }
