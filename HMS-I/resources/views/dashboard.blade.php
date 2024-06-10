@@ -15,7 +15,7 @@
         <button class="btn btn-primary"> Login</button>
         </a></div>
        
-    <div ><a href="{{route('pa.add')}}">
+    <div ><a href="{{route('pa.add')}}"> 
         <button class="btn btn-primary"> Add patients</button>
         </a></div>
     <div >
