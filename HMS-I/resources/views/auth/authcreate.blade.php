@@ -43,24 +43,26 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('authlogina')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('authcreatea')}}" enctype="multipart/form-data">
         
     @csrf 
-    <h1 >Login Page </h1>
+    <h1 >Registration Form </h1>
     <div class="form-group">
     
 
     <div class="form-grop">
        
-   
-
-            <div class="mt-4">
+    <label for="name">Name</label>
+                <input id="" class="block mt-1 w-full" type="text" name="name" value="" >
+            </div>
+            
+<div class="mt-4">
                 <label for="email" >Email</label>
                 <input id="email" class="block mt-1 w-full" type="email" name="email" value="" required autocomplete="username" >
             </div>
 
             <div class="mt-4"> 
-                <label for="password" >Password</label>
+                <label for="password" value="" >Password</label>
                 <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="password">
                     <span class="text-danger">
                         @error('password')
@@ -69,11 +71,28 @@
                     </span>
             </div>
 
-          
-
+            <div class="mt-4">
+                <label for="password_confirmation" value="">Confirm Password</label>
+                <input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="password_confirmation" >
+                <span>
+                    
+                        @error('password_confirmation') 
+                        {{$message}}
+                        @enderror
+                    </span>
+            </div>
+<div>   
+<div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" id="role" name="role" required>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Patient">Patient</option>
+            </select>
+        </div>
    
 <div>
-    <button type="submit" name="submit" class="btn btn-primary">Login</button>
+    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 </div>
 </form>
 </body>

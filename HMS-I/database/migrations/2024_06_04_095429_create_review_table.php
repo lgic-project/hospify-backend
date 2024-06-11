@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointment', function (Blueprint $table) {
-            $table->id('apt_id');
-            $table->date('aptdate');
-            $table->time('apttime');
+        Schema::create('review', function (Blueprint $table) {
+            $table->id('re_id');
+            $table->text('redes');
+            $table->text('fredes');
             $table->unsignedBigInteger('pa_id')->nullable()->constrained()->onDelete('cascade');   
             $table->foreign('pa_id')->references('pa_id')->on('patientacc');
             $table->unsignedBigInteger('dc_id')->nullable()->constrained()->onDelete('cascade');   
             $table->foreign('dc_id')->references('dc_id')->on('docacc');
-            $table->timestamps();
 
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointment');
+        Schema::dropIfExists('review');
     }
 };

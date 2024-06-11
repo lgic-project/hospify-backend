@@ -16,7 +16,7 @@ class Doctor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role =='doctor' ){
+        if (auth()->user() && auth()->user()->role =='Doctor' ){
             return $next($request);}
             return redirect('/');
     }

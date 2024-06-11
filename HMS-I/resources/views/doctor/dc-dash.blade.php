@@ -15,7 +15,7 @@
         <button class="btn btn-primary"> Login</button>
         </a></div>
        
-    <div ><a href="{{route('pa.add')}}"> 
+    <div ><a href="{{route('pa.add')}}">
         <button class="btn btn-primary"> Add patients</button>
         </a></div>
     <div >
@@ -52,7 +52,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 
-                   <h1>Welcome</h1>
+                   <h1>Welcome  doctor </h1>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@
     <form method="post" action="{{route('authlogina')}}" enctype="multipart/form-data">
         
     @csrf 
-    <h1 >Login Page </h1>
+    <h1 >Auth Login Page </h1>
     <div class="form-group">
     
 
