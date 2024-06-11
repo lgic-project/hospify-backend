@@ -50,17 +50,20 @@
 </nav>
 <body>
 @php
-    $sname = session()->get('sname');
+
+    $sname = session()->get('fname');
+   
 @endphp
   
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 
-                   <h1>Welcome Patient {{$sname }}</h1>
+                   <h1>Welcome Patient {{$sname }} </h1>
                 </div>
             </div>
         </div>
+        <a href="{{route('sc.search')}}" button class="btn btn-primary">Schedule apointment?</a>
     </div>
     </body>
 </app-layout>

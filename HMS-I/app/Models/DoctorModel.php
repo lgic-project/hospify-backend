@@ -35,4 +35,8 @@ class DoctorModel extends Model
     public function review() {
         return $this->hasMany(ReviewModel::class, 'doctor_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

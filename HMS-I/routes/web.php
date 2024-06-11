@@ -18,8 +18,8 @@ route::get('/logout',[PatientController::class,'logout'])->name('logout');
 route::get('/', [AuthController::class,'index'])->name('pa.home');
 
 
-route::get('/aaa',[AuthController::class,'authcrt'])->name('authcreate');
-//route::post('/aaa1',[AuthController::class,'authcrta'])->name('authcreatea');
+route::get('/authcret',[AuthController::class,'authcrt'])->name('authcreate');
+route::post('/authcret',[AuthController::class,'authcrta'])->name('authcreatea');
 route::get('/auth',[AuthController::class,'authlogin'])->name('authlogin');
 route::post('/auth',[AuthController::class,'authlogina'])->name('authlogina');
 

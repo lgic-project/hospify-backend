@@ -95,12 +95,17 @@
                    <select id="apt-time" class="block mt-1 w-full" name="apt_time" required class="form-select">
            
                        </select>
-         
-            <div>
-                <label for="pa_id" >Patient Id</label>
-                <input id="pa_id" class="block mt-1 w-full" type="text" name="pa_id" value="" required autofocus autocomplete="address" >
-            </div>
+    </div>
+@php
 
+    $sname = session()->get('fname');
+    $pid = session()->get('pid');
+@endphp
+           
+                <input id="pa_id" class="block mt-1 w-full" type="text" name="pa_id" value=" {{$pid}}" required autofocus autocomplete="" hidden >
+      
+
+                <h1> {{$sname }} {{$pid}}</h1>
 <div>
     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 </div>
@@ -125,7 +130,7 @@
                 'X-CSRF-TOKEN': csrfToken
             },
             data: {
-                'dc_id': '1',
+                'dc_id': '{{ $doc->dc_id}}',
                 'apt-date': selectedDate
             },
             dataType: 'json',
