@@ -37,11 +37,15 @@ dependencies:
   cupertino_icons: ^1.0.6
   http: ^1.2.1
   provider: ^6.1.2
+  carousel_slider: ^4.2.1
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   table_calendar: ^3.0.1
+
+ 
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -77,8 +81,12 @@ flutter:
   - assets/image/doctor4.jpg
   - assets/image/doctor5.jpg
   - assets/image/search button.jpg
-  
+  - assets/image/slider.jpg
+  - assets/image/slider1.jpg
+  - assets/image/slider2.jpg
+  - assets/image/medicalrecords.png
 
+  # - assets/avatar.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

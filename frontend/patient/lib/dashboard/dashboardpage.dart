@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-import 'notification.dart';
-import 'setting.dart';
+import 'profile/settingpage.dart';
+import 'search.dart';
+import 'profile/patientpage.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
 
 void main() {
   runApp(MaterialApp(
@@ -13,56 +15,83 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
-              );
-            },
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.blue,
+      //   // elevation: 0,
+      //   // actions: const [
+      //     // IconButton(
+      //     //   icon: Icon(Icons.notifications, color: Colors.white),
+      //     //   onPressed: () {
+      //     //     Navigator.push(
+      //     //       context,
+      //     //       MaterialPageRoute(builder: (context) => NotificationsPage()),
+      //     //     );
+      //     //   },
+      //     // ),
+      //   // ],
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Top Section with User Info and Search
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(25.0),
               color: Colors.blue,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'User id: 001',
-                            style: TextStyle(color: Colors.white),
+                            'welcome',
+                            style: TextStyle(color: Colors.white, fontSize: 50),
                           ),
                           SizedBox(height: 8.0),
                           Text(
                             'Hi, Ram',
-                            style: TextStyle(color: Colors.white, fontSize: 24.0),
+                            style: TextStyle(color: Colors.white, fontSize: 30.0),
                           ),
                           SizedBox(height: 8.0),
                           Text(
                             'Do you have any health issue?',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 15.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 150,
+                        padding: EdgeInsets.only(left: 20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.search),
+                          color: Colors.blue,
+                          iconSize: 45,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SearchPage()),
+                            );
+                          },
+                        ),
+                      ),
                       IconButton(
                         icon: Icon(Icons.person, color: Colors.white),
+                        iconSize: 50,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -72,83 +101,45 @@ class DashboardPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Search...',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: Icon(Icons.search),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.0),
-                      IconButton(
-                        icon: Icon(Icons.filter_list),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
-            // Available Doctors Section
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Available Doctors',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            // Carousel Section
+            SizedBox(height: 3.0),
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 110.0,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                aspectRatio: 19 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: Duration(milliseconds: 600),
+                viewportFraction: 0.8,
               ),
+              items: [
+                'assets/image/slider.jpg', // Add your image paths here
+                'assets/image/slider1.jpg',
+                'assets/image/slider2.jpg',
+              ].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal:2.0),
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                      ),
+                      child: Image.asset(
+                        i,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
             ),
-            Container(
-              height: 100.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildDoctorAvatar('assets/image/doctor.jpg'),
-                  _buildDoctorAvatar('assets/image/doctor1.jpg'),
-                  _buildDoctorAvatar('assets/image/doctor2.jpg'),
-                  _buildDoctorAvatar('assets/image/doctor3.jpg'),
-                  _buildDoctorAvatar('assets/image/doctor4.jpg'),
-                  _buildDoctorAvatar('assets/image/doctor5.jpg'),
-                ],
-              ),
-            ),
-            // Services Section
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Our Services',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-            ),
-            GridView.count(
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                _buildServiceCard('General practice', Icons.local_hospital),
-                _buildServiceCard('Internal Medicine', Icons.healing),
-                _buildServiceCard('Cardiology', Icons.favorite),
-                _buildServiceCard('Psychiatric', Icons.person),
-                _buildServiceCard('Pediatrics', Icons.child_care),
-                _buildServiceCard('Dermatology', Icons.face),
-                _buildServiceCard('Gynaecology', Icons.pregnant_woman),
-                _buildServiceCard('Gastroenterology', Icons.local_dining),
-                _buildServiceCard('Orthopedic', Icons.accessibility),
-                _buildServiceCard('Dermatology', Icons.brush),
-                _buildServiceCard('Hertology', Icons.favorite_border),
-                _buildServiceCard('Psychiatric', Icons.psychology),
-              ],
-            ),
+            // Additional content can be added here
           ],
         ),
       ),
@@ -159,7 +150,7 @@ class DashboardPage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+             icon: Icon(Icons.person),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
@@ -171,7 +162,7 @@ class DashboardPage extends StatelessWidget {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfilePage()),
+              MaterialPageRoute(builder: (context) => PatientPage()),
             );
           } else if (index == 2) {
             Navigator.push(
@@ -180,40 +171,6 @@ class DashboardPage extends StatelessWidget {
             );
           }
         },
-      ),
-    );
-  }
-
-  Widget _buildDoctorAvatar(String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        radius: 35.0,
-        backgroundImage: AssetImage(imagePath),
-      ),
-    );
-  }
-
-  Widget _buildServiceCard(String title, IconData icon) {
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: InkWell(
-        onTap: () {},
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40.0, color: Colors.blue),
-            SizedBox(height: 10.0),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14.0),
-            ),
-          ],
-        ),
       ),
     );
   }
