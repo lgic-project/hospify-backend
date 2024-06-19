@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DoctorModel;
+use App\Models\PatientModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Log;
@@ -55,7 +58,8 @@ class AuthController extends Controller
            
             if (Auth::attempt($credentials)) {
                 
-                session(['sname'=> Auth::user()->name]);
+                session(['fname'=> Auth::user()->fname]);
+                
                 //session()->only(['sname'=> Auth::user()->name]);
                 $route = $this->redirectDash();
                
@@ -87,6 +91,7 @@ class AuthController extends Controller
                      $redirect = '/nurse/view';
                      break;
                  case 'Patient':
+                    
                      $redirect = '/patientdash';
                      break;
                  default:
@@ -100,17 +105,37 @@ class AuthController extends Controller
     }
     
 
-    public function authcrta(Request $request){
+    public function authcrta(Request $request){ //create  acc
         $request -> validate([
             'email' => 'required| email',
             'password' => 'required'
         ]);
+    
      $crt = new user;
-     $crt->name = $request['name'];
-     $crt->email = $request['email'];
+     $crt->fname = $request['fname'];
+     $crt->lname = $request['lname'];
+     $crt->email = $request['email']; 
      $crt->password = hash::make($request['password']);
      $crt->role = $request['role'];
      $crt->save();
+     if ($request->role == 'Patient') {
+        $patient = new PatientModel();
+        $patient->id = $crt->id;
+        $patient->fname = $crt->fname;
+        $patient->lname = $crt->lname;
+        $patient->email = $crt->email;
+        $patient->password = $crt->password;
+        
+        $patient->save(); // Save the patient to the database
+    } elseif ($request->role == 'Doctor') {
+        $doctor = new DoctorModel();
+        $doctor->id = $crt->id;
+        $doctor->fname = $crt->fname;
+        $doctor->lname = $crt->lname;
+        $doctor->email = $crt->email;
+        $doctor->password = $crt->password;
+        $doctor->save(); // Save the doctor to the database
+    }
      return redirect('/auth');
 
     }

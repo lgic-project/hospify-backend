@@ -4,6 +4,7 @@
    prescription}
 id ko based ma view function add garni(done)
 role ko form  ma value lai fix garni
+app ma login hunibitikaii update ma lani
 reference ko  lai role id banayera  use garna milxa(not imp)
 
 medical report lai paxi medical history banauni 

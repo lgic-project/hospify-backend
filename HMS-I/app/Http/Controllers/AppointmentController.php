@@ -5,7 +5,9 @@ use App\Models\PatientModel;
 use App\Models\AppointmentModel;
 use App\Models\DoctorModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 class AppointmentController extends Controller
 {
     public function index(){
@@ -17,11 +19,19 @@ class AppointmentController extends Controller
     }
 
 
-    public function search(){
+    public function search(){ //doc id bata garni banauni
+    
+   $userId = Auth::user()->id;
+   $patient = PatientModel::where('id', $userId)->first();
+   session(['pid' => $patient->pa_id]);
+   //Log::error('Patient record not found for user ID: ' . $userId);
+
+  
         $doctor = DoctorModel::all();
-        $starttime = DoctorModel::where('dc_id', 1)->value('starttime');
+        $starttime = DoctorModel::where('dc_id', 1)->value('starttime');//yo check garni
         $endtime = DoctorModel::where('dc_id', 1)->value('endtime');
         $data = compact('doctor', 'starttime', 'endtime');
+     
        return view('appointment.scform')->with( $data);
     }
 
@@ -61,10 +71,8 @@ public function check(Request $request)
     return ('successfull');
  }
  public function view(){
-   //  $appt = AppointmentModel::all();
-   //  $data = compact('appt','doc','pa');
-   //  return view('appointment.appt-view')->with($data);
-   $appt = AppointmentModel::with(['doctor', 'patient'])->get();
+   
+    $appt = AppointmentModel::with(['doctor', 'patient'])->get();
    return view('appointment.appt-view', compact('appt'));
  }
 }

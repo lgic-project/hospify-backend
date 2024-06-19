@@ -52,10 +52,12 @@
 
     <div class="form-grop">
        
-    <label for="name">Name</label>
-                <input id="" class="block mt-1 w-full" type="text" name="name" value="" >
+    <label for="aname">First Name</label>
+                <input id="" class="block mt-1 w-full" type="text" name="fname" value="" >
             </div>
-            
+            <label for="fname">Last Name</label>
+                <input id="" class="block mt-1 w-full" type="text" name="lname" value="" >
+            </div>
 <div class="mt-4">
                 <label for="email" >Email</label>
                 <input id="email" class="block mt-1 w-full" type="email" name="email" value="" required autocomplete="username" >

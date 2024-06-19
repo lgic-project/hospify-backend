@@ -33,4 +33,8 @@ class PatientModel extends Model
     public function review() {
         return $this->hasMany(ReviewModel::class, 'patient_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

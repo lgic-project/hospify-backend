@@ -17,10 +17,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'fname',
+        'lname',
         'email',
         'password',
-        'role'
+        'role',
+        
     ];
 
     /**
@@ -32,7 +34,15 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-   
+    public function patient()
+    {
+        return $this->hasOne(PatientModel::class);
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne(DoctorModel::class);
+    }
 
     /**
      * Get the attributes that should be cast.

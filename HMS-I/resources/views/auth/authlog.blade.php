@@ -76,5 +76,8 @@
     <button type="submit" name="submit" class="btn btn-primary">Login</button>
 </div>
 </form>
+<div>   
+    <a href="{{route('authcreate')}}">Regsiter?</a>
+</div>
 </body>
 </html>
