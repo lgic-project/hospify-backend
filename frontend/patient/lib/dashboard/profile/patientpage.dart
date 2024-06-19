@@ -41,7 +41,7 @@ class PatientPage extends StatelessWidget {
               color: Colors.blue,
               width: double.infinity,
               child: Column(
-                children: [
+                children: const [
                   SizedBox(height: 10.0),
                   CircleAvatar(
                     radius: 40,

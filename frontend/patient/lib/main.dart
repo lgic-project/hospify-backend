@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/welcomepage/welcomepage.dart';
 import 'dashboard/dashboardpage.dart';
-import 'welcomepage/registrationpage.dart'; // Ensure you import the registration page if you have it
+// Ensure you import the registration page if you have it
 
 void main() {
   runApp(MyApp());
