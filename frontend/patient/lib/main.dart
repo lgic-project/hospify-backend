@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/welcomepage/welcomepage.dart';
+import 'package:provider/provider.dart';
 import 'dashboard/dashboardpage.dart';
 import 'welcomepage/registrationpage.dart'; // Ensure you import the registration page if you have it
+import 'package:frontend/Pacontroller/PatientController.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +12,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hospital Management System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => PaDataProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Hospital Management System',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: WelcomePage(),
       ),
-      home: WelcomePage(),
     );
   }
 }

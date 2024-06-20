@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../profile.dart';
 import 'appoinmentpage.dart';
 import 'prescriptionpage.dart';
@@ -6,16 +7,25 @@ import 'medicalrecordpage.dart';
 import 'favouritepage.dart';
 import 'settingpage.dart';
 import 'signoutpage.dart';
+import 'package:frontend/Pacontroller/PatientController.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: PatientPage(),
-  ));
+class PatientPage extends StatefulWidget {
+  @override
+  State<PatientPage> createState() => _PatientPageState();
 }
 
-class PatientPage extends StatelessWidget {
+class _PatientPageState extends State<PatientPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final datas = Provider.of<PaDataProvider>(context, listen: false);
+    datas.getMyData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final datas = Provider.of<PaDataProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -45,11 +55,12 @@ class PatientPage extends StatelessWidget {
                   SizedBox(height: 10.0),
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/image/doctor.jpg'), // Add your avatar image path
+                    backgroundImage: AssetImage(
+                        'assets/image/doctor.jpg'), // Add your avatar image path
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    'Ram bahadur',
+                    datas.patientData.data?.fname ?? "N/A",
                     style: TextStyle(color: Colors.white, fontSize: 24.0),
                   ),
                   SizedBox(height: 10.0),
@@ -63,21 +74,27 @@ class PatientPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildProfileOption('Prescription', Icons.description, Colors.green, context),
-                      _buildProfileOption('Medical Record', Icons.medical_services, Colors.blue, context),
+                      _buildProfileOption('Prescription', Icons.description,
+                          Colors.green, context),
+                      _buildProfileOption('Medical Record',
+                          Icons.medical_services, Colors.blue, context),
                     ],
                   ),
                   SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildProfileOption('Appointment', Icons.calendar_today, Colors.purple, context),
-                      _buildProfileOption('Favourites', Icons.favorite, Colors.lightBlue, context),
+                      _buildProfileOption('Appointment', Icons.calendar_today,
+                          Colors.purple, context),
+                      _buildProfileOption('Favourites', Icons.favorite,
+                          Colors.lightBlue, context),
                     ],
                   ),
                   SizedBox(height: 16.0),
-                  _buildProfileListOption('Settings', Icons.settings, Colors.red, context),
-                  _buildProfileListOption('Sign Out', Icons.logout, Colors.red, context),
+                  _buildProfileListOption(
+                      'Settings', Icons.settings, Colors.red, context),
+                  _buildProfileListOption(
+                      'Sign Out', Icons.logout, Colors.red, context),
                 ],
               ),
             ),
@@ -87,7 +104,8 @@ class PatientPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileOption(String title, IconData icon, Color color, BuildContext context) {
+  Widget _buildProfileOption(
+      String title, IconData icon, Color color, BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -142,14 +160,16 @@ class PatientPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileListOption(String title, IconData icon, Color color, BuildContext context) {
+  Widget _buildProfileListOption(
+      String title, IconData icon, Color color, BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: color),
       title: Text(title),
-      trailing: Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 41, 9, 226)),
+      trailing:
+          Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 41, 9, 226)),
       onTap: () {
         // Navigate to the respective page based on the title
-         if (title == 'Settings') {
+        if (title == 'Settings') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SettingsPage()),

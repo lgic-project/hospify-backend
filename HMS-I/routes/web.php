@@ -31,7 +31,7 @@ route::post('/sc-save',[AppointmentController::class,'save'])->name('sc.save');
 route::post('/sc-check',[AppointmentController::class,'check'])->name('sc.check');//doc schedule check garni
 route::get('/sc-view',[AppointmentController::class,'view'])->name('sc.view');
  
-
+ 
 
     
 route::get('/department',[DepartmentController::class,'index'])->name('dt.add');

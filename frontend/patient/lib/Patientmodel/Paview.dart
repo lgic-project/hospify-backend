@@ -1,11 +1,11 @@
-class dcdetailsmodel {
+class PaaccModel {
   bool? status;
   String? message;
   Data? data;
 
-  dcdetailsmodel({this.status, this.message, this.data});
+  PaaccModel({this.status, this.message, this.data});
 
-  dcdetailsmodel.fromJson(Map<String, dynamic> json) {
+  PaaccModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
@@ -23,25 +23,29 @@ class dcdetailsmodel {
 }
 
 class Data {
-  int? dcId;
+  int? paId;
   String? fname;
   String? lname;
-  String? address;
-  String? city;
-  int? pnm;
-  String? gender;
-  int? age;
+  dynamic address;
+  dynamic city;
+  dynamic pnm;
+  dynamic gender;
+  dynamic age;
+  dynamic weight;
+  dynamic mh;
   String? email;
+  dynamic status;
   String? password;
-  Null? img1;
-  String? role;
-  Null? dptId;
-  Null? rememberToken;
+  dynamic img1;
+  dynamic role;
+  int? id;
+  dynamic dptId;
+  dynamic rememberToken;
   String? createdAt;
   String? updatedAt;
 
   Data(
-      {this.dcId,
+      {this.paId,
       this.fname,
       this.lname,
       this.address,
@@ -49,17 +53,21 @@ class Data {
       this.pnm,
       this.gender,
       this.age,
+      this.weight,
+      this.mh,
       this.email,
+      this.status,
       this.password,
       this.img1,
       this.role,
+      this.id,
       this.dptId,
       this.rememberToken,
       this.createdAt,
       this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
-    dcId = json['dc_id'];
+    paId = json['pa_id'];
     fname = json['fname'];
     lname = json['lname'];
     address = json['address'];
@@ -67,10 +75,14 @@ class Data {
     pnm = json['pnm'];
     gender = json['gender'];
     age = json['age'];
+    weight = json['weight'];
+    mh = json['mh'];
     email = json['email'];
+    status = json['status'];
     password = json['password'];
     img1 = json['img1'];
     role = json['role'];
+    id = json['id'];
     dptId = json['dpt_id'];
     rememberToken = json['remember_token'];
     createdAt = json['created_at'];
@@ -79,7 +91,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['dc_id'] = this.dcId;
+    data['pa_id'] = this.paId;
     data['fname'] = this.fname;
     data['lname'] = this.lname;
     data['address'] = this.address;
@@ -87,10 +99,14 @@ class Data {
     data['pnm'] = this.pnm;
     data['gender'] = this.gender;
     data['age'] = this.age;
+    data['weight'] = this.weight;
+    data['mh'] = this.mh;
     data['email'] = this.email;
+    data['status'] = this.status;
     data['password'] = this.password;
     data['img1'] = this.img1;
     data['role'] = this.role;
+    data['id'] = this.id;
     data['dpt_id'] = this.dptId;
     data['remember_token'] = this.rememberToken;
     data['created_at'] = this.createdAt;
