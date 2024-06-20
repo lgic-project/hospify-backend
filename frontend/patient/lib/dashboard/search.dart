@@ -64,9 +64,9 @@ class _SearchPageState extends State<SearchPage> {
       imageUrl: 'assets/image/doctor2.jpg',
     ),
      Doctor(
-      name: 'Dr. Kiran Sunar',
+      name: 'Dr. prabesh ',
       specialization: 'Internal Medicine',
-      experience: 2,
+      experience: 10,
       fee: 850,
       imageUrl: 'assets/image/doctor3.jpg',
     ),
