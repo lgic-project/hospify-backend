@@ -6,9 +6,10 @@ class BookAppointmentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // ignore: prefer_const_constructors
         title: Text('Book Appointment'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Book Appointment Page Content'),
       ),
     );

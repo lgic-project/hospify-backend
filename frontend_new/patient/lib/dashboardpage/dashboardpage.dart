@@ -3,7 +3,6 @@ import 'profile.dart';
 import 'profile/Bookappoinment.dart';
 import 'profile/medicalrecordpage.dart';
 import 'profile/prescriptionpage.dart';
-import 'profile/settingpage.dart';
 import 'search.dart';
 import 'profile/patientpage.dart';
 import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
@@ -18,21 +17,6 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.blue,
-      //   // elevation: 0,
-      //   // actions: const [
-      //     // IconButton(
-      //     //   icon: Icon(Icons.notifications, color: Colors.white),
-      //     //   onPressed: () {
-      //     //     Navigator.push(
-      //     //       context,
-      //     //       MaterialPageRoute(builder: (context) => NotificationsPage()),
-      //     //     );
-      //     //   },
-      //     // ),
-      //   // ],
-      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +35,7 @@ class DashboardPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'welcome',
+                            'Welcome',
                             style: TextStyle(color: Colors.white, fontSize: 50),
                           ),
                           SizedBox(height: 8.0),
@@ -60,7 +44,6 @@ class DashboardPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 30.0),
                           ),
                           SizedBox(height: 8.0),
-                          
                         ],
                       ),
                     ],
@@ -108,7 +91,7 @@ class DashboardPage extends StatelessWidget {
             const SizedBox(height: 3.0),
             CarouselSlider(
               options: CarouselOptions(
-                height: 110.0,
+                height: 140.0,
                 enlargeCenterPage: true,
                 autoPlay: true,
                 aspectRatio: 19 / 9,
@@ -126,7 +109,7 @@ class DashboardPage extends StatelessWidget {
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal:2.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 2.0),
                       decoration: const BoxDecoration(
                         color: Colors.amber,
                       ),
@@ -140,16 +123,9 @@ class DashboardPage extends StatelessWidget {
               }).toList(),
             ),
             Container(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.only(right: 20, top: 10),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildProfileOption('Prescription', Icons.description, Colors.green, context),
-                      _buildProfileOption('Medical Record', Icons.medical_services, Colors.blue, context),
-                    ],
-                  ),
                   const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,9 +133,21 @@ class DashboardPage extends StatelessWidget {
                       _buildProfileOption('Appointment', Icons.calendar_today, Colors.purple, context),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildProfileOption('Medical Record', Icons.medical_services, Colors.blue, context),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildProfileOption('Prescription', Icons.description, Colors.green, context),
+                    ],
+                  ),
                 ],
               ),
-            ),// Additional content can be added here
+            ), // Additional content can be added here
           ],
         ),
       ),
@@ -170,10 +158,9 @@ class DashboardPage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-             icon: Icon(Icons.person),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
-          
         ],
         onTap: (index) {
           if (index == 1) {
@@ -181,11 +168,12 @@ class DashboardPage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => PatientPage()),
             );
-          } 
+          }
         },
       ),
     );
   }
+
   Widget _buildProfileOption(String title, IconData icon, Color color, BuildContext context) {
     return Expanded(
       child: GestureDetector(
@@ -201,10 +189,10 @@ class DashboardPage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => MedicalRecordPage()),
             );
-          }  else if (title == 'Appointment') {
+          } else if (title == 'Appointment') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => BookAppointmentPage()),  // Ensure this class exists in bookappointment.dart
+              MaterialPageRoute(builder: (context) => SearchPage()), // Navigate to the SearchPage
             );
           }
         },
