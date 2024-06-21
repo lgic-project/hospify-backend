@@ -128,7 +128,7 @@ class PatientPage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          title: Column(
+          title: const Column(
             children: [
               Icon(
                 Icons.error_outline,
@@ -139,10 +139,10 @@ class PatientPage extends StatelessWidget {
               Text('Logout'),
             ],
           ),
-          content: Text('Thank You for using Mero Doctor\n\nAre you sure you want to logout?'),
+          content: const Text('Thank You for using Mero Doctor\n\nAre you sure you want to logout?'),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'No',
                 style: TextStyle(color: Colors.red),
               ),
@@ -154,7 +154,7 @@ class PatientPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.red, // foreground
               ),
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 Navigator.of(context).pop();
                 // Implement your logout functionality here
