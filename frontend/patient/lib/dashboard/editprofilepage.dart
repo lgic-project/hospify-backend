@@ -94,7 +94,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onPressed: _saveProfile,
               child: Text('update'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),

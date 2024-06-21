@@ -1,83 +1,56 @@
 <!DOCTYPE html>
-<head><nav class="navbar navbar-default navbar-">
-<nav class="navbar navbar-default navbar-">
-    <!-- @if(session()->has('name'))
-        {{session()->get('name')}}
-    @else
-    Guest
-    @endif -->
-    
-    <div ><a href="{{route('pa.home')}}">
-        <button class="btn btn-primary"> Home</button>
-        </a></div>
-    <div ><a href="{{route('pa.add')}}">
-        <button class="btn btn-primary"> Add patients</button>
-        </a></div>
-    <div >
-        <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> Patient View</button>
-        </a>
-    </div> 
-    
-    <div ><a href="{{route('dc.add')}}">
-        <button class="btn btn-primary"> Add Doctor</button>
-        </a></div>
-    <div >
-        <a href="{{route('dc.view')}}">
-        <button class="btn btn-primary">view doc</button>
-        </a>
-    </div> 
-    <div >
-        <a href="{{route('nr.add')}}">
-        <button class="btn btn-primary">Add Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
-        </a>
-    </div> 
-</nav>
-  
-</nav>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ __('Login') }}</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">{{ __('Login') }}</div>
 
-    <form method="post" action="{{route('authlogina')}}" enctype="multipart/form-data">
-        
-    @csrf 
-    <h1 >Auth Login Page </h1>
-    <div class="form-group">
-    
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('authlogina') }}">
+                            @csrf
 
-    <div class="form-grop">
-       
-   
+                            <div class="mb-3">
+                                <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-            <div class="mt-4">
-                <label for="email" >Email</label>
-                <input id="email" class="block mt-1 w-full" type="email" name="email" value="" required autocomplete="username" >
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">{{ __('Password') }}</label>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
+
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="mt-4"> 
-                <label for="password" >Password</label>
-                <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="password">
-                    <span class="text-danger">
-                        @error('password')
-                        {{$message}}
-                        @enderror
-                    </span>
-            </div>
-
-          
-
-   
-<div>
-    <button type="submit" name="submit" class="btn btn-primary">Login</button>
-</div>
-</form>
-<div>   
-    <a href="{{route('authcreate')}}">Regsiter?</a>
-</div>
 </body>
 </html>

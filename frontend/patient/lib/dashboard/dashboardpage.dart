@@ -48,13 +48,14 @@ class DashboardPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'welcome',
+                            'Welcome',
                             style: TextStyle(color: Colors.white, fontSize: 50),
                           ),
                           SizedBox(height: 8.0),
                           Text(
                             'Hi, Ram',
-                            style: TextStyle(color: Colors.white, fontSize: 30.0),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 30.0),
                           ),
                           SizedBox(height: 8.0),
                           Text(
@@ -84,7 +85,8 @@ class DashboardPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SearchPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => SearchPage()),
                             );
                           },
                         ),
@@ -95,7 +97,8 @@ class DashboardPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProfilePage()),
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()),
                           );
                         },
                       ),
@@ -126,7 +129,7 @@ class DashboardPage extends StatelessWidget {
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal:2.0),
+                      margin: EdgeInsets.symmetric(horizontal: 2.0),
                       decoration: BoxDecoration(
                         color: Colors.amber,
                       ),
@@ -150,7 +153,7 @@ class DashboardPage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-             icon: Icon(Icons.person),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
           BottomNavigationBarItem(

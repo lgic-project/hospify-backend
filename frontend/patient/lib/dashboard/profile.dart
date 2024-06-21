@@ -13,7 +13,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String location = 'Pokhara';
   String email = 'ram@gmail.com';
 
-  void _updateProfile(String newName, String newDob, String newGender, String newLocation, String newEmail) {
+  void _updateProfile(String newName, String newDob, String newGender,
+      String newLocation, String newEmail) {
     setState(() {
       name = newName;
       dob = newDob;
@@ -69,7 +70,8 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: Text('update Information'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
