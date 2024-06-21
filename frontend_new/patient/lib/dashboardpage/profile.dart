@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'editprofilepage.dart';
-import 'profile/patientpage.dart'; // Assuming this is where your PatientPage is imported from
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -30,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+       
         backgroundColor: Colors.blue,
         title: Text(name),
       ),
@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 );
               },
-              child: Text('Update Information'),
+              child: Text('update Information'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
@@ -80,28 +80,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-            // Navigate to Home page (assuming PatientPage is your Home page)
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PatientPage()),
-            );
-          }
-          // You can handle more navigation items here if needed
-        },
       ),
     );
   }

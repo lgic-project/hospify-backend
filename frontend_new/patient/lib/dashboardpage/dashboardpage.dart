@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-import 'profile/medicalrecordpage.dart';
-import 'profile/prescriptionpage.dart';
+import 'medicalrecordpage.dart';
+import 'prescriptionpage.dart';
 import 'search.dart';
 import 'profile/patientpage.dart';
 import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
@@ -121,6 +121,8 @@ class DashboardPage extends StatelessWidget {
                 );
               }).toList(),
             ),
+            // Our Services Section
+            
             Container(
               padding: const EdgeInsets.only(right: 20, top: 10),
               child: Column(
@@ -142,6 +144,37 @@ class DashboardPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       _buildProfileOption('Prescription', Icons.description, Colors.green, context),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Our Services',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20.0),
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: const [
+                      ServiceItem(title: 'General practice', icon: Icons.local_hospital),
+                      ServiceItem(title: 'Internal Medicine', icon: Icons.healing),
+                      ServiceItem(title: 'Cardiology', icon: Icons.favorite),
+                      ServiceItem(title: 'Psychiatric', icon: Icons.psychology),
+                      ServiceItem(title: 'Pediatrics', icon: Icons.child_care),
+                      ServiceItem(title: 'Dermatology', icon: Icons.face),
+                      ServiceItem(title: 'Gynaecology', icon: Icons.pregnant_woman),
+                      ServiceItem(title: 'Gastroenterology', icon: Icons.lunch_dining),
+                      ServiceItem(title: 'Orthopedic', icon: Icons.accessibility),
+                      ServiceItem(title: 'Nephrology', icon: Icons.water_damage),
+                      ServiceItem(title: 'Hematology', icon: Icons.bloodtype),
+                      ServiceItem(title: 'Psychiatric', icon: Icons.psychology_outlined),
                     ],
                   ),
                 ],
@@ -219,6 +252,32 @@ class DashboardPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ServiceItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const ServiceItem({required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SearchPage()),
+        );
+      },
+      child: Column(
+        children:[
+          Icon(icon, size: 50, color:Colors.blue),
+          const SizedBox(height: 8.0,),
+          Text(title, textAlign: TextAlign.center),
+        ],
       ),
     );
   }

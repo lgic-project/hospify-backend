@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_new/main.dart';
 import '../dashboardpage.dart';
 import '../profile.dart';
-import 'settingpage.dart';
+import 'setting/settingpage.dart';
 import 'signoutpage.dart';
 
 void main() {
@@ -115,11 +116,57 @@ class PatientPage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => SettingsPage()),
           );
         } else if (title == 'Sign Out') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignOutPage()),
-          );
+          _showLogoutDialog(context);
         }
+      },
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 50,
+                color: Colors.red,
+              ),
+              SizedBox(height: 10),
+              Text('Logout'),
+            ],
+          ),
+          content: Text('Thank You for using Mero Doctor\n\nAre you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'No',
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.red, // foreground
+              ),
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Implement your logout functionality here
+                // For example, navigate to a sign-out page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+          ],
+        );
       },
     );
   }
