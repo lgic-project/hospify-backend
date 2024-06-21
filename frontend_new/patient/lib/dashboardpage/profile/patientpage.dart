@@ -4,7 +4,6 @@ import '../profile.dart';
 import 'settingpage.dart';
 import 'signoutpage.dart';
 
-
 void main() {
   runApp(MaterialApp(
     home: PatientPage(),
@@ -68,11 +67,37 @@ class PatientPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16.0),
                   _buildProfileListOption('Settings', Icons.settings, Colors.red, context),
-                     _buildProfileListOption('Sign Out', Icons.logout, Colors.red, context),                      ],
+                  _buildProfileListOption('Sign Out', Icons.logout, Colors.red, context),
+                ],
               ),
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardPage()),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PatientPage()),
+            );
+          }
+        },
       ),
     );
   }

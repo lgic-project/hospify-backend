@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-import 'profile/Bookappoinment.dart';
 import 'profile/medicalrecordpage.dart';
 import 'profile/prescriptionpage.dart';
 import 'search.dart';
@@ -182,7 +181,7 @@ class DashboardPage extends StatelessWidget {
           if (title == 'Prescription') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PrescriptionPage()),
+              MaterialPageRoute(builder: (context) => MyPrescriptionPage()),
             );
           } else if (title == 'Medical Record') {
             Navigator.push(
@@ -192,7 +191,7 @@ class DashboardPage extends StatelessWidget {
           } else if (title == 'Appointment') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SearchPage()), // Navigate to the SearchPage
+              MaterialPageRoute(builder: (context) => SearchPage()),
             );
           }
         },
