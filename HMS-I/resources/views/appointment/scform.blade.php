@@ -56,7 +56,7 @@
         </a>
     </div>
 </nav>
-  
+   
 </nav>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -121,6 +121,8 @@
         console.log('Date changed.');
         const selectedDate = $(this).val();
         const formattedDate = selectedDate.split('/').reverse().join('-');
+        const doctorId = $('select[name="dc_id"]').val();
+
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
         
         $.ajax({
@@ -130,7 +132,7 @@
                 'X-CSRF-TOKEN': csrfToken
             },
             data: {
-                'dc_id': '{{ $doc->dc_id}}',
+                'dc_id': doctorId,
                 'apt-date': selectedDate
             },
             dataType: 'json',

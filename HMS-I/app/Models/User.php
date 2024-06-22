@@ -36,12 +36,12 @@ class User extends Authenticatable
     ];
     public function patient()
     {
-        return $this->hasOne(PatientModel::class);
+        return $this->hasOne(PatientModel::class, 'id');
     }
 
     public function doctor()
     {
-        return $this->hasOne(DoctorModel::class);
+        return $this->hasOne(DoctorModel::class, 'id');
     }
 
     /**

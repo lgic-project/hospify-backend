@@ -54,7 +54,7 @@ route::get('/patient/delete/{id}',[PatientController::class,'padelete'])->name('
 });
 
 
-Route::group(['middleware' => ['Doctormd']], function () {
+Route::group(['middleware' => ['Doctormd']],function () {
     
 route::get('/doctordash',[DocController::class,'dcdash'])->name('dc.dash');
 route::get('/doctor',[DocController::class,'dcform'])->name('dc.add');

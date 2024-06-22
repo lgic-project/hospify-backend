@@ -41,6 +41,7 @@ public function check(Request $request)
     $doctorId = $request->input('dc_id');
     $date = $request->input('apt-date'); 
     $formattedDate = date('Y-m-d', strtotime($date));
+ 
 
     $bookedSlots = AppointmentModel::where('dc_id', $doctorId)
         ->whereDate('aptdate', $formattedDate)
@@ -71,8 +72,11 @@ public function check(Request $request)
     return ('successfull');
  }
  public function view(){
-   
-    $appt = AppointmentModel::with(['doctor', 'patient'])->get();
+     $id = session()->get('sid');
+     Log::info($id);
+    //$appt = AppointmentModel::where('dc_id', $id)->get();
+    $appt = AppointmentModel::with(['doctor', 'patient'])->where('dc_id', $id)->get();
+   // $appt = AppointmentModel::with(['doctor', 'patient'])->get();
    return view('appointment.appt-view', compact('appt'));
  }
 }

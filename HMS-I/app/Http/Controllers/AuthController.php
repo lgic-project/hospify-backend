@@ -59,7 +59,8 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 
                 session(['fname'=> Auth::user()->fname]);
-                
+                session(['sid'=> Auth::user()->id]);
+                Log::info('Session data after login:', session()->all());
                 //session()->only(['sname'=> Auth::user()->name]);
                 $route = $this->redirectDash();
                
@@ -85,13 +86,20 @@ class AuthController extends Controller
          Log::info('User role: ' . $role);
              switch (Auth::user()->role) {
                  case 'Doctor':
+                    $did = session('sid');
+                    $user = User::find($did);
+                    $dcid = $user->doctor->dc_id;
+                    //$id = DoctorModel::where('dc_id', $did)->first();
+                    session(['sid' => $dcid]);
+                    Log::info('before redirect',['dcid'=>$dcid]);
                      $redirect = '/doctordash';
                      break;
-                 case 'Nurse':
-                     $redirect = '/nurse/view';
-                     break;
+               
                  case 'Patient':
-                    
+                    $did = session('sid');
+                    $id = PatientModel::where('pa_id', $did)->first();
+                    session(['sid' => $id]);
+                    Log::info('before redirect',[$id]);
                      $redirect = '/patientdash';
                      break;
                  default:
