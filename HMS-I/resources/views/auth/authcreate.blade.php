@@ -1,79 +1,53 @@
 <!DOCTYPE html>
-<head><nav class="navbar navbar-default navbar-">
-<nav class="navbar navbar-default navbar-">
-    <!-- @if(session()->has('name'))
-        {{session()->get('name')}}
-    @else
-    Guest
-    @endif -->
-    
-    <div ><a href="{{route('pa.home')}}">
-        <button class="btn btn-primary"> Home</button>
-        </a></div>
-    <div ><a href="{{route('pa.add')}}">
-        <button class="btn btn-primary"> Add patients</button>
-        </a></div>
-    <div >
-        <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> Patient View</button>
-        </a>
-    </div> 
-    
-    <div ><a href="{{route('dc.add')}}">
-        <button class="btn btn-primary"> Add Doctor</button>
-        </a></div>
-    <div >
-        <a href="{{route('dc.view')}}">
-        <button class="btn btn-primary">view doc</button>
-        </a>
-    </div> 
-    <div >
-        <a href="{{route('nr.add')}}">
-        <button class="btn btn-primary">Add Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
-        </a>
-    </div> 
-</nav>
-  
-</nav>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ __('Login') }}</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">{{ __('Login') }}</div>
 
-    <form method="post" action="{{route('authcreatea')}}" enctype="multipart/form-data">
-        
-    @csrf 
-    <h1 >Registration Form </h1>
-    <div class="form-group">
-    
+                    <div class="card-body">
+                    <form method="post" action="{{route('authcreatea')}}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
 
-    <div class="form-grop">
-       
-    <label for="aname">First Name</label>
-                <input id="" class="block mt-1 w-full" type="text" name="fname" value="" >
-            </div>
-            <label for="fname">Last Name</label>
-                <input id="" class="block mt-1 w-full" type="text" name="lname" value="" >
-            </div>
-<div class="mt-4">
-                <label for="email" >Email</label>
-                <input id="email" class="block mt-1 w-full" type="email" name="email" value="" required autocomplete="username" >
-            </div>
+                        <label for="aname">First Name</label>
+                        <input id="" class="block mt-1 w-full" type="text" name="fname" value="" >
+                       </div>
+                       <div class="mb-3">
+                       <label for="fname">Last Name</label>
+                           <input id="" class="block mt-1 w-full" type="text" name="lname" value="" >
+                       </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-            <div class="mt-4"> 
-                <label for="password" value="" >Password</label>
-                <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="password">
-                    <span class="text-danger">
-                        @error('password')
-                        {{$message}}
-                        @enderror
-                    </span>
-            </div>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
-            <div class="mt-4">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">{{ __('Password') }}</label>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                 <label for="password_confirmation" value="">Confirm Password</label>
                 <input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="password_confirmation" >
                 <span>
@@ -83,19 +57,26 @@
                         @enderror
                     </span>
             </div>
-<div>   
-<div class="form-group">
+            <div class="mb-3">
             <label for="role">Role</label>
             <select class="form-control" id="role" name="role" required>
                 <option value="Doctor">Doctor</option>
-                <option value="Nurse">Nurse</option>
+               
                 <option value="Patient">Patient</option>
             </select>
         </div>
-   
-<div>
-    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-</div>
-</form>
+                            
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
+
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
