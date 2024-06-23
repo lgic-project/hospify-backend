@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('apt_id');
             $table->date('aptdate');
             $table->time('apttime');
+            $table->text('pst');
+            $table->text('treat');
             $table->unsignedBigInteger('pa_id')->nullable()->constrained()->onDelete('cascade');   
             $table->foreign('pa_id')->references('pa_id')->on('patientacc');
             $table->unsignedBigInteger('dc_id')->nullable()->constrained()->onDelete('cascade');   

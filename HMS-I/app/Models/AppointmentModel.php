@@ -14,7 +14,8 @@ class AppointmentModel extends Model
     protected $fillable = [
       'aptdate',
       'apttime',
-      
+      'pst',// problems
+      'treat',
         
     ];
   

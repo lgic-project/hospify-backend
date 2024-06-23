@@ -6,6 +6,7 @@ use App\Http\Controllers\API\PatientApiController;
 use App\Http\Controllers\API\DoctorApiController;
 use App\Http\Controllers\API\NurseApiController;
 use App\Http\Controllers\API\SchApiController;
+use App\Http\Controllers\API\DepartmentControllerApi;
 //next migration ma img lai nullable banauni
 
 use App\Http\Controllers\DocController;
@@ -35,3 +36,7 @@ Route::get("nrview-detail/{id}",[NurseApiController::class,'nrviewed']);
 
 Route::get("schview",[SchApiController::class,'scview']);
 Route::post("schb",[SchApiController::class,'scb']);//book appointment api
+
+
+//department
+Route::get("dptview",[DepartmentControllerApi::class,'view']);

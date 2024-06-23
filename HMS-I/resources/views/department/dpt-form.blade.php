@@ -43,7 +43,7 @@
 </head>
 <body>
 
-    <form method="post" action="{{route('dpt.save')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('dt.save')}}" enctype="multipart/form-data">
         
     @csrf 
     <h1 >Department </h1>
