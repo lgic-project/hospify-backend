@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DepartmentModel;
+use App\Models\DoctorModel;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -71,5 +72,23 @@ class DepartmentController extends Controller
         $dpt->save();
         return redirect('/dpt/view');
     
+    }
+
+    public function admin(){
+        return view('dashboard.admin');
+    }
+    public function table(Request $request){
+        $search = $request['search'] ?? "";
+        if($search !=""){
+            $doctor =  DoctorModel::where('fname','LIKE', "%$search%")->get();
+        }
+        else{
+        $doctor =  DoctorModel::all();
+        }
+        $data = compact('doctor');
+        return view('dashboard.table')->with( $data);
+    }
+    public function view(){
+        return view('doctor.test');
     }
 }

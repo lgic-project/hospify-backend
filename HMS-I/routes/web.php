@@ -42,7 +42,7 @@ route::get('/dpt/delete/{id}',[DepartmentController::class,'dtdelete'])->name('d
 route::post('/dpt/update/{id}',[DepartmentController::class,'dtupdate'])->name('dt.update'); 
 
 
-Route::group(['middleware'=> ['Patientmd']], function () {
+Route::group(['middleware'=> ['Patientmd']], function () {});
 route::get('/patientdash',[PatientController::class,'padash'])->name('pa.dash');
 route::get('/patient',[PatientController::class,'paform'])->name('pa.add');
 route::post('/paregister',[PatientController::class,'pastore'])->name('pa.save');
@@ -51,10 +51,10 @@ route::get('/patient/view', [PatientController::class,'paview'])->name('pa.view'
 route::get('/patient/edit/{id}',[PatientController::class,'paedit'])->name('pa.edit'); 
 route::post('/patient/update/{id}',[PatientController::class,'paupdate'])->name('pa.update'); 
 route::get('/patient/delete/{id}',[PatientController::class,'padelete'])->name('pa.delete'); 
-});
 
 
-Route::group(['middleware' => ['Doctormd']],function () {
+
+Route::group(['middleware' => ['Doctormd']],function () {});
     
 route::get('/doctordash',[DocController::class,'dcdash'])->name('dc.dash');
 route::get('/doctor',[DocController::class,'dcform'])->name('dc.add');
@@ -64,7 +64,7 @@ route::get('/doctor/view', [DocController::class,'dview'])->name('dc.view');
 route::get('/doctor/edit/{id}',[DocController::class,'dedit'])->name('dc.edit'); 
 route::post('/doctor/update/{id}',[DocController::class,'dupdate'])->name('dc.update'); 
 route::get('/doctor/delete/{id}',[DocController::class,'ddelete'])->name('dc.delete'); 
-});
+
 
 //Route::group(['middleware' => ['Nurse']], function () {});
     
@@ -77,3 +77,7 @@ route::get('/nurse/edit/{id}',[NurseController::class,'nedit'])->name('nr.edit')
 route::post('/nurse/update/{id}',[NurseController::class,'nupdate'])->name('nr.update'); 
 route::get('/nurse/delete/{id}',[NurseController::class,'ndelete'])->name('nr.delete');
 
+
+route::get('/ddash',[DepartmentController::class,'admin'])->name('dashm');
+route::get('/table',[DepartmentController::class,'table']);
+route::get('/test',[DepartmentController::class,'view']);

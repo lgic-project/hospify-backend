@@ -34,12 +34,13 @@
     </div> 
     <div >
         <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
+        <button class="btn btn-primary">View Nurse </button>
         </a>
     </div> 
 </nav>
   
-</nav>
+
+
 </head>
 <body>
 

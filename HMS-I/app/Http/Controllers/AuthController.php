@@ -151,4 +151,6 @@ class AuthController extends Controller
         return view('auth.authcreate');
     }
 
+
+
 }
