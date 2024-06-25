@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'medicalrecordpage.dart';
+import 'api for profile/profile.dart';
+import 'api for medical record/medicalrecordpage.dart';
 import 'prescriptionpage.dart';
 import 'search.dart';
 import 'profile/patientpage.dart';
@@ -77,7 +77,7 @@ class DashboardPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const ProfilePage()),
+                            MaterialPageRoute(builder: (context) => ProfilePage()),
                           );
                         },
                       ),
@@ -219,7 +219,7 @@ class DashboardPage extends StatelessWidget {
           } else if (title == 'Medical Record') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MedicalRecordPage()),
+              MaterialPageRoute(builder: (context) => UploadImagePage()),
             );
           } else if (title == 'Appointment') {
             Navigator.push(

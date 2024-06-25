@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_new/main.dart';
 import '../dashboardpage.dart';
-import '../profile.dart';
+import '../api for profile/profile.dart';
 import 'setting/settingpage.dart';
 import 'signoutpage.dart';
 
@@ -33,7 +33,7 @@ class PatientPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
+                MaterialPageRoute(builder: (context) =>  ProfilePage()),
               );
             },
           ),

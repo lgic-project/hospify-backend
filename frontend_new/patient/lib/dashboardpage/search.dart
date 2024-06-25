@@ -26,6 +26,8 @@ class Doctor {
   final double fee;
   final String imageUrl;
 
+  var id;
+
   Doctor({
     required this.name,
     required this.specialization,
