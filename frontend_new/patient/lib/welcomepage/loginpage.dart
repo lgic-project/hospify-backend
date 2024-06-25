@@ -59,18 +59,18 @@ class _LoginPageState extends State<LoginPage> {
     }
     return null;
   }
-   //(validation ko lagi)
-  // String? _passwordValidator(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Please enter your password';
-  //   }
-  //   final passwordRegex = RegExp(
-  //       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$');
-  //   if (!passwordRegex.hasMatch(value)) {
-  //     return 'Password must be at least 6 characters long and contain uppercase, lowercase, digit, and special character';
-  //   }
-  //   return null;
-  // }
+  //  (validation ko lagi)
+  String? _passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    final passwordRegex = RegExp(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$');
+    if (!passwordRegex.hasMatch(value)) {
+      return 'Password must be at least 6 characters long and contain uppercase, lowercase, digit, and special character';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
