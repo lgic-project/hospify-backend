@@ -133,7 +133,7 @@ class AuthController extends Controller
         $patient->lname = $crt->lname;
         $patient->email = $crt->email;
         $patient->password = $crt->password;
-        
+        $patient->role = 'Patient';        
         $patient->save(); // Save the patient to the database
     } elseif ($request->role == 'Doctor') {
         $doctor = new DoctorModel();
@@ -142,6 +142,7 @@ class AuthController extends Controller
         $doctor->lname = $crt->lname;
         $doctor->email = $crt->email;
         $doctor->password = $crt->password;
+        $doctor->role = 'Doctor';
         $doctor->save(); // Save the doctor to the database
     }
      return redirect('/auth');
