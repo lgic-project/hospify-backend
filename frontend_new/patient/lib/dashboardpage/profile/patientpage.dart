@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_new/main.dart';
+import 'package:frontend_new/welcomepage/welcomepage.dart';
 import '../dashboardpage.dart';
 import '../api for profile/profile.dart';
 import 'setting/settingpage.dart';
-import 'signoutpage.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -161,7 +160,7 @@ class PatientPage extends StatelessWidget {
                 // For example, navigate to a sign-out page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => WelcomePage()),
                 );
               },
             ),

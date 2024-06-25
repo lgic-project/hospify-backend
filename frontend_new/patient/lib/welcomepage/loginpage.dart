@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../dashboardpage/dashboardpage.dart';
-import 'passwordresetpage.dart';
+import '../dashboardpage/api for resetpassword/passwordresetpage.dart';
 
 void main() {
   runApp(MyApp());

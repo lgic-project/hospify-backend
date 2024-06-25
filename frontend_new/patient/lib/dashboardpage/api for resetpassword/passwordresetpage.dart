@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart'; // Ensure this import points to your login page file
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../welcomepage/loginpage.dart'; // Ensure this import points to your login page file
 
 class PasswordResetPage extends StatefulWidget {
   @override
@@ -9,21 +11,65 @@ class PasswordResetPage extends StatefulWidget {
 class _PasswordResetPageState extends State<PasswordResetPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
-  void _resetPassword() {
+  String apiUrl = 'https://your-api-endpoint.com/reset-password'; // Replace with your API endpoint
+
+  void _resetPassword() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // Handle password reset logic
       String newPassword = _newPasswordController.text;
       String confirmPassword = _confirmPasswordController.text;
-      print('New Password: $newPassword, Confirm Password: $confirmPassword');
-      // Add your password reset logic here
+
+      // Prepare data to send in the request body
+      Map<String, dynamic> requestBody = {
+        'newPassword': newPassword,
+        'confirmPassword': confirmPassword,
+        // Add any additional parameters required by your API
+      };
+
+      // Send POST request
+      try {
+        final response = await http.post(
+          Uri.parse(apiUrl),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json.encode(requestBody),
+        );
+
+        if (response.statusCode == 200) {
+          // Password reset successful
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Password reset successful!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          // Navigate back to login page
+          _navigateToLogin();
+        } else {
+          // Password reset failed
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to reset password. Please try again.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        print('Error resetting password: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to reset password. Please try again.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
     }
   }
 
   void _navigateToLogin() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => LoginPage()),
     );
@@ -33,12 +79,12 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reset Password'),
+        title: const Text('Reset Password'),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -46,14 +92,13 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Image.asset('assets/image/reset.png', height: 400.0),
-                  SizedBox(height: 1.0),
-                  Text(
+                  const SizedBox(height: 1.0),
+                  const Text(
                     'Reset Password',
-                    style:
-                        TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   TextFormField(
                     controller: _newPasswordController,
                     decoration: InputDecoration(
@@ -70,7 +115,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   TextFormField(
                     controller: _confirmPasswordController,
                     decoration: InputDecoration(
@@ -90,17 +135,17 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   ElevatedButton(
                     onPressed: _resetPassword,
-                    child: Text('Reset Password'),
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
                     ),
+                    child: const Text('Reset Password'),
                   ),
                   TextButton(
                     onPressed: _navigateToLogin,
-                    child: Text('Back to Login'),
+                    child: const Text('Back to Login'),
                   ),
                 ],
               ),
