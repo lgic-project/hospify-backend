@@ -1,66 +1,114 @@
-<!DOCTYPE html>
-<head><nav class="navbar navbar-default navbar-">
-<nav class="navbar navbar-default navbar-">
-    <!-- @if(session()->has('name'))
-        {{session()->get('name')}}
-    @else
-    Guest
-    @endif -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Appointment Table</title>
+
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="assets/css/table.css" rel="stylesheet" />
     
-    <div ><a href="{{route('pa.home')}}">
-        <button class="btn btn-primary"> Home</button>
-        </a></div>
-    <div ><a href="{{route('pa.add')}}">
-        <button class="btn btn-primary"> Add patients</button>
-        </a></div>
-    <div >
-        <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> Patient View</button>
-        </a>
-    </div> 
-    
-    <div ><a href="{{route('dc.add')}}">
-        <button class="btn btn-primary"> Add Doctor</button>
-        </a></div>
-    <div >
-        <a href="{{route('dc.view')}}">
-        <button class="btn btn-primary">view doc</button>
-        </a>
-    </div> 
-    <div >
-        <a href="{{route('nr.add')}}">
-        <button class="btn btn-primary">Add Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('sc')}}">
-        <button class="btn btn-primary">Schedule</button>
-        </a>
-    </div>
-</nav>
-  
-</nav>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+
+
+
 </head>
 <body>
+    <div class="wrapper">
+      <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="description">
+                        <h2>Table </h2>
+                    </div>
 
-   
-        
-    @csrf 
-    <h1 >Schedule Appointment ? </h1>
+                    <div class="fresh-table full-color-orange">
 
-       
-    
+                      <div class="bootstrap-table bootstrap3">
+                      <div class="fixed-table-toolbar">
+                        <div class="bs-bars pull-left">
+                    <div class="toolbar">
+                      <a href="{{route('dashm')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
+                   </div>
+                      </div>
+                     <div class="columns columns-right pull-right btn-group pull right">
+                        <button class="btn btn-default" type="button"  name="refresh" aria-label="refresh" title="Refresh">
+                          <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+                     </div> 
 
+                     
 
-          
+                   <div class="pull-right search input-group">
+                    <form action="">
+                     
+                    <input class="form-control search-input" type="search" id="search" autocomplete="off" placeholder="Search" >
+                     <div class="columns columns-right pull-right btn-group pull right">
+                    <!-- <button  class="btn btn-default"  name="search">Search</button></div> form submit button -->
+                    </form>
+                   </div>
+                   
+                   </div>
+                   <div clas="fixed-table-container" style="padding-bottom: 0px;">
+                    <div class="fixed-table-header" style="display: none;">
+                      <table></table>
 
-   
+                    </div>
+                    <div class="fixed-table-body">
+                      <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
+                        <span></span>
+                      </div>
+                        <table id="fresh-table" class="table">
+                            <thead>
+                                <th data-field="id">Date </th>
+                                <th data-field="name" data-sortable="true">Time</th>
+                                <th data-field="name" data-sortable="true">Doctor Name</th>
+                                <th data-field="name" data-sortable="true">Patient Name</th>
+                                <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            @foreach($apt as $at)
+                           
+                              <tr>
+                              <td>{{ $at->aptdate }}</td>
+                              <td>{{ $at->apttime }}</td>
+                                <td>{{ $at->doctor->fname }}</td>
+                                <td>{{ $at->patient->fname }}</td>
+                                
+                                <td>
+                                <a href="{{url('/doctor/delete/')}}/{{$at->apt_id}} ">
+                                <button class="btn btn-danger">Delete</button>
 
+                                </a>
 
+                                <a href="{{url('/doctor/edit/')}}/{{$at->apt_id}}">
+                                <button class="btn btn-primary">Edit</button>
+                              </a>
+                              </td>
+                            </tr>
+                               
+                              @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 </body>
+                       
 </html>

@@ -20,7 +20,7 @@ class AppointmentController extends Controller
 
 
     public function search(){ //doc id bata garni banauni
-    
+    //this done
    $userId = Auth::user()->id;
    $patient = PatientModel::where('id', $userId)->first();
    session(['pid' => $patient->pa_id]);
@@ -78,5 +78,10 @@ public function check(Request $request)
     $appt = AppointmentModel::with(['doctor', 'patient'])->where('dc_id', $id)->get();
    // $appt = AppointmentModel::with(['doctor', 'patient'])->get();
    return view('appointment.appt-view', compact('appt'));
+ }
+ public function see(){
+    $apt = AppointmentModel::with(['doctor', 'patient'])->get();
+    $data= compact('apt');
+    return view('appointment.index', $data);
  }
 }

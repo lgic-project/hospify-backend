@@ -90,7 +90,7 @@
 
   
 <li class="nav-item">
-  <a class="nav-link text-white " href="./billing.html">
+  <a class="nav-link text-white " href="{{route('pa.view')}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
@@ -102,7 +102,7 @@
 
   
 <li class="nav-item">
-  <a class="nav-link text-white " href="./virtual-reality.html">
+  <a class="nav-link text-white " href="{{route('dt.view')}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
@@ -111,10 +111,20 @@
     <span class="nav-link-text ms-1">Department</span>
   </a>
 </li>
+<li class="nav-item">
+  <a class="nav-link text-white " href="{{route('dt.add')}}">
+    
+      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+        <i class="material-icons opacity-10"></i>
+      </div>
+    
+    <span class="nav-link-text ms-1">Create Department</span>
+  </a>
+</li>
 
   
 <li class="nav-item">
-  <a class="nav-link text-white " href="./rtl.html">
+  <a class="nav-link text-white " href="{{route('sc.see')}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
@@ -156,7 +166,7 @@
 </li>
 
   
-<li class="nav-item">
+<li class="nav-item"> 
   <a class="nav-link text-white " href="./sign-up.html">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -198,8 +208,8 @@
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           
           <div class="input-group input-group-outline">
-            <label class="form-label">Type here...</label>
-            <input type="text" class="form-control">
+            <label class="form-label"></label>
+            
           </div>
           
       </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\File;
 use App\Models\DoctorModel;
+use App\Models\DepartmentModel;
 use Illuminate\Http\Request;
 
 class DocController extends Controller
@@ -95,6 +96,7 @@ public function ddelete($id)
 public function dedit($id){
     //$patient=Patientacc::find($id);
      $doctor  = DoctorModel::where('dc_id', $id)->first();
+     $dpt =  DepartmentModel::all();
     if (is_null($doctor )){
         return redirect('/doctor/view');
         // $patient = Patientacc::where('pa_id', $id)->delete();
@@ -102,7 +104,7 @@ public function dedit($id){
     else{
         $title="Update  Doctor";
         $url=url('/doctor/update/')."/".$id;
-        $data = compact('doctor','url','title');
+        $data = compact('doctor','url','title','dpt');
         return view('doctor.docupdate')->with( $data);
     }
 
@@ -111,7 +113,7 @@ public function dupdate(Request $request , $id){
     //$patient = Patientacc::where('pa_id', $id)->first();
    //dd($patient);
  
-   $doctor  = DoctorModel::find($id);
+   $doctor  = DoctorModel::find($id); 
 //    if($request->has('img1')){
 
 //     $file = $request->file('img1');

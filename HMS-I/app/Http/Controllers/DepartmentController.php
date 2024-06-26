@@ -53,9 +53,9 @@ class DepartmentController extends Controller
            
         }
         else{
-            $title="Update  Patient ";
+            
             $url=url('/dt/update/')."/".$id;
-            $data = compact('dpt','url','title');
+            $data = compact('dpt','url');
             return view('department.dpt-update')->with( $data);
             
         } 
