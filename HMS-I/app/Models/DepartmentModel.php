@@ -13,14 +13,15 @@ class DepartmentModel extends Model
     protected $fillable = [
       'dpt_name',
       'dpt_des',
+      'dc_id',
         
     ];
     
     public function doctor() {
-      return $this->belongsTo(DoctorModel::class, 'doctor_id');
+      return $this->belongsTo(DoctorModel::class, 'dc_id');
   }
 
   public function patient() {
-      return $this->belongsTo(PatientModel::class, 'patient_id');
+      return $this->belongsTo(PatientModel::class, 'pa_id');
   }
 }

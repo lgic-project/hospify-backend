@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('dpt_id');
             $table->string('dpt_name',100);
             $table->text('dpt_des')->nullable();//description  
+            $table->BigInteger('dc_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreign('dc_id')->references('dc_id')->on('docacc');
             $table->timestamps();
         });
     }

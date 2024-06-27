@@ -16,7 +16,8 @@ class AppointmentModel extends Model
       'apttime',
       'pst',// problems
       'treat',
-        
+      'status',
+        'pres', //medication
     ];
   
     

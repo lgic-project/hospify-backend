@@ -1,145 +1,115 @@
-<!DOCTYPE html>
-<head><nav class="navbar navbar-default navbar-">
-<nav class="navbar navbar-default navbar-">
-    <!-- @if(session()->has('name'))
-        {{session()->get('name')}}
-    @else
-    Guest
-    @endif -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Doctor Update</title>
+
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="/assets/css/table.css" rel="stylesheet" />
     
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
 
-	<style>body{padding-top: 60px;}</style>
-
-    <link href="assets/css/authcss/bootstrap.css" rel="stylesheet" />
-
-	<link href="assets/css/authcss/login-register.css" rel="stylesheet" />
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
-	<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="assets/js/authjs/bootstrap.js" type="text/javascript"></script>
-	<script src="assets/js/authjs/login-register.js" type="text/javascript"></script>
-
-
-    <div ><a href="{{route('pa.home')}}">
-        <button class="btn btn-primary"> Home</button>
-        </a></div>
-    <div ><a href="{{route('pa.add')}}">
-        <button class="btn btn-primary"> Add patients</button>
-        </a></div>
-    <div >
-        <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> Patient View</button>
-        </a>
-    </div> 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<style>
+    input[type="text"]{
+        color: black;
     
-    <div ><a href="{{route('dc.add')}}">
-        <button class="btn btn-primary"> Add Doctor</button>
-        </a></div>
-    <div >
-        <a href="{{route('dc.view')}}">
-        <button class="btn btn-primary">view doc</button>
-        </a>
-    </div> 
-    <div >
-        <a href="{{route('nr.add')}}">
-        <button class="btn btn-primary">Add Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
-        </a>
-    </div> 
-</nav>
-  
-</nav>
+    }
+    .black-text{
+        color: black;
+    }
+</style>
+
+
 </head>
 <body>
-<div class="container">
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                 <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
-                 <a class="btn big-register" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a></div>
-            <div class="col-sm-4"></div>
+    <div class="wrapper">
+      <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="description">
+                        <h2>Doctor Update Form</h2>
+                    </div>
+
+                    <div class="fresh-table full-color-blue">
+
+                      <div class="bootstrap-table bootstrap3">
+                      <div class="fixed-table-toolbar">
+                        <div class="bs-bars pull-left">
+                    <div class="toolbar">
+                      <a href="{{route('dashm')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
+                   </div>
+                      </div>
+                     </div>
+                   <div clas="fixed-table-container" style="padding-bottom: 0px;">
+                    <div class="fixed-table-header" style="display: none;">
+                      <table></table>
+
+                    </div>
+                    <div class="fixed-table-body">
+                    <form method="post" action="{{route('authcreatea')}}" enctype="multipart/form-data">
+                      <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
+                        <span></span>
+                   
+                        
+                            <div class="form-group" >
+                 <label for="fname">First Name</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="fname" value="{{old('fname', $doctor->fname)}}" >
+            </div>
+            <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="lname" value="{{old('lname', $doctor->lname)}}" required autofocus autocomplete="lname" >
+            </div>
+           
+
+            <div class="form-group">
+                <label for="email" >Email</label>
+                <input id="email" class="block mt-1 w-full black-text" type="email" name="email" value="{{old('email', $doctor->email)}}" required autocomplete="username" >
+            </div>
+
+            <div class="form-group">
+                <label for="password" value="" >Password</label>
+                <input id="password" class="block mt-1 w-full black-text" type="password" name="password" required autocomplete="password">
+                    <span class="text-danger">
+                        @error('password')
+                        {{$message}}
+                        @enderror
+                    </span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" value="">Confirm Password</label>
+                <input id="password_confirmation" class="block mt-1 w-full black-text" type="password" name="password_confirmation" required autocomplete="password_confirmation" >
+                <span>
+                    
+                        @error('password_confirmation')
+                        {{$message}}
+                        @enderror
+                    </span>
+            </div> 
+         <div>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </div>
-
-        <div class="modal fade login" id="loginModal">
-		      <div class="modal-dialog login animated">
-    		      <div class="modal-content">
-    		         <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Login with</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="box">
-                             <div class="content">
-                                <div class="social">
-                                    <a class="circle github" href="#">
-                                        <i class="fa fa-github fa-fw"></i>
-                                    </a>
-                                    <a id="google_login" class="circle google" href="#">
-                                        <i class="fa fa-google-plus fa-fw"></i>
-                                    </a>
-                                    <a id="facebook_login" class="circle facebook" href="#">
-                                        <i class="fa fa-facebook fa-fw"></i>
-                                    </a>
-                                </div>
-                                <div class="division">
-                                    <div class="line l"></div>
-                                      <span>or</span>
-                                    <div class="line r"></div>
-                                </div>
-                                <div class="error"></div>
-                                <div class="form loginBox">
-                                    <form method="POST" action="{{route('authlogina')}}" accept-charset="UTF-8">
-                                    <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                    <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
-                                    </form>
-                                </div>
-                             </div>
-                        </div>
-                        <div class="box">
-                            <div class="content registerBox" style="display:none;">
-                             <div class="form">
-                                <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
-                                <input class="btn btn-default btn-register" type="button" value="Create account" name="commit">
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="forgot login-footer">
-                            <span>Looking to
-                                 <a href="javascript: showRegisterForm();">Create an Account</a>
-                            ?</span>
-                        </div>
-                        <div class="forgot register-footer" style="display:none">
-                             <span>Already have an account?</span>
-                             <a href="javascript: showLoginForm();">Login</a>
-                        </div>
-                    </div>
-    		      </div>
-		      </div>
-		  </div>
     </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        openLoginModal();
-    });
-</script>
-  
-
-
-
+    </div>
 </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 </body>
+                       
 </html>

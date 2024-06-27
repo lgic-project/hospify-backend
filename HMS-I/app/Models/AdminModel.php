@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PatientModel extends Model
+class AdminModel extends Model
 {
     use HasFactory;
-    protected $table = 'patientacc';
-    protected $primaryKey = 'pa_id';
+    protected $table = 'adminacc';
+    protected $primaryKey = 'a_id';
     protected $fillable = [
         'fname',
         'lname',
@@ -18,21 +18,11 @@ class PatientModel extends Model
         'pnm',
         'gender',
         'age',
-        'weight',
-        'mh',
         'email',
         'password',
-        'img1',
-        'dis',
-        'role',
+         'role',
         
     ];
-    public function appointments() {
-        return $this->hasMany(AppointmentModel::class, 'patient_id');
-    }
-    public function review() {
-        return $this->hasMany(ReviewModel::class, 'patient_id');
-    }
     public function user()
     {
         return $this->belongsTo(User::class,'id');

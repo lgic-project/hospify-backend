@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminModel;
 use App\Models\DoctorModel;
 use App\Models\PatientModel;
 use App\Models\User;
@@ -102,9 +103,14 @@ class AuthController extends Controller
                     Log::info('before redirect',[$id]);
                      $redirect = '/patientdash';
                      break;
-                 default:
-                     // Handle default redirection
+                 case 'Admin':
+                    $did = session('sid');
+                    $id = AdminModel::where('a_id', $did)->first();
+                    session(['sid' => $id]);
+                    Log::info('before redirect',[$id]);
+                     $redirect = '/ddash';
                      break;
+                     
              }
              return $redirect;
          }
@@ -135,7 +141,8 @@ class AuthController extends Controller
         $patient->password = $crt->password;
         $patient->role = 'Patient';        
         $patient->save(); // Save the patient to the database
-    } elseif ($request->role == 'Doctor') {
+    } 
+     elseif ($request->role == 'Doctor') {
         $doctor = new DoctorModel();
         $doctor->id = $crt->id;
         $doctor->fname = $crt->fname;
@@ -144,6 +151,16 @@ class AuthController extends Controller
         $doctor->password = $crt->password;
         $doctor->role = 'Doctor';
         $doctor->save(); // Save the doctor to the database
+    }
+    elseif ($request->role == 'Admin'){
+        $ad = new AdminModel();
+        $ad->id = $crt->id;
+        $ad->fname = $crt->fname;
+        $ad->lname = $crt->lname;
+        $ad->email = $crt->email;
+        $ad->password = $crt->password;
+        $ad->role = 'Admin';
+        $ad->save(); 
     }
      return redirect('/auth');
 

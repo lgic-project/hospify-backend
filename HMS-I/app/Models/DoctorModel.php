@@ -25,6 +25,7 @@ class DoctorModel extends Model
         'role',
         'speciality',
         'qual',
+        'exp',
         'starttime',
         'endtime',  
         
@@ -37,6 +38,6 @@ class DoctorModel extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id');
     }
 }

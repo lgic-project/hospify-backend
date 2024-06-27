@@ -43,7 +43,7 @@
                    </div>
                       </div>
                      <div class="columns columns-right pull-right btn-group pull right">
-                        <button class="btn btn-default" type="button"  name="refresh" aria-label="refresh" title="Refresh">
+                        <button class="btn btn-default" type="button"  name="refresh" aria-label="refresh" title="Refresh" onclick="window.location.reload();">
                           <i class="glyphicon glyphicon-refresh icon-refresh"></i>
                      </div> 
 

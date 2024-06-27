@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class Nurse
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class Nurse
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role =='Nurse' ){
+        if (auth()->user() && auth()->user()->role =='Admin' ){
             return $next($request);}
             return redirect('/');
     }
