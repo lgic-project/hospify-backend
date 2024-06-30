@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_new/dashboardpage/dashboardpage.dart';
+import 'package:frontend_new/dashboardpage/searchpage.dart';
 import 'loginpage.dart'; // Import the login page
 import 'registrationpage.dart'; // Import the registration page
 

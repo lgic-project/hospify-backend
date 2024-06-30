@@ -5,11 +5,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:frontend_new/UserData.dart';
+import 'package:frontend_new/model/AccModel.dart';
 
 import 'package:http/http.dart' as http;
 
-class GetDataProvider with ChangeNotifier {
-  Userdata responseData = Userdata();
+class PaDataProvider with ChangeNotifier {
+  Accmodel responseData = Accmodel();
 
   bool isLoading = false;
 
@@ -20,13 +21,13 @@ class GetDataProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Userdata> getAllData() async {
+  Future<Accmodel> getAllData() async {
     try {
-      final response =
-          await http.get(Uri.parse("http://127.0.0.1:8000/api/login"));
+      final response = await http
+          .get(Uri.parse("http:///api/paview-detail/2")); //afno ip address use
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
-        responseData = Userdata.fromJson(item);
+        responseData = Accmodel.fromJson(item);
         notifyListeners();
       } else {
         print("else");

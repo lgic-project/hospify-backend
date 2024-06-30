@@ -22,7 +22,9 @@ class PatientPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DashboardPage()), // Navigate back to the dashboard
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DashboardPage()), // Navigate back to the dashboard
             );
           },
         ),
@@ -32,7 +34,7 @@ class PatientPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  ProfilePage()),
+                MaterialPageRoute(builder: (context) => ProfilePage()),
               );
             },
           ),
@@ -50,7 +52,8 @@ class PatientPage extends StatelessWidget {
                   SizedBox(height: 10.0),
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/image/doctor.jpg'), // Add your avatar image path
+                    backgroundImage: AssetImage(
+                        'assets/image/doctor.jpg'), // Add your avatar image path
                   ),
                   SizedBox(height: 10.0),
                   Text(
@@ -66,8 +69,10 @@ class PatientPage extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 16.0),
-                  _buildProfileListOption('Settings', Icons.settings, Colors.red, context),
-                  _buildProfileListOption('Sign Out', Icons.logout, Colors.red, context),
+                  _buildProfileListOption(
+                      'Settings', Icons.settings, Colors.red, context),
+                  _buildProfileListOption(
+                      'Sign Out', Icons.logout, Colors.red, context),
                 ],
               ),
             ),
@@ -102,11 +107,13 @@ class PatientPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileListOption(String title, IconData icon, Color color, BuildContext context) {
+  Widget _buildProfileListOption(
+      String title, IconData icon, Color color, BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: color),
       title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 41, 9, 226)),
+      trailing: const Icon(Icons.arrow_forward_ios,
+          color: Color.fromARGB(255, 41, 9, 226)),
       onTap: () {
         // Navigate to the respective page based on the title
         if (title == 'Settings') {
@@ -126,7 +133,8 @@ class PatientPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           title: const Column(
             children: [
               Icon(
@@ -138,7 +146,8 @@ class PatientPage extends StatelessWidget {
               Text('Logout'),
             ],
           ),
-          content: const Text('Thank You for using Mero Doctor\n\nAre you sure you want to logout?'),
+          content: const Text(
+              'Thank You for using Mero Doctor\n\nAre you sure you want to logout?'),
           actions: <Widget>[
             TextButton(
               child: const Text(
@@ -151,7 +160,8 @@ class PatientPage extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.red, // foreground
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red, // foreground
               ),
               child: const Text('Yes'),
               onPressed: () {

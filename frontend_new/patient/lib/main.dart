@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_new/Controller/AccController.dart';
 import 'package:frontend_new/UserData.dart';
+import 'package:provider/provider.dart';
 import "global.dart" as global;
 import 'dashboardpage/dashboardpage.dart';
 import 'welcomepage/welcomepage.dart';
@@ -13,13 +15,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hospital Management System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: WelcomePage(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (ctx) => PaDataProvider()),
+        ],
+        child: MaterialApp(
+          title: 'Hospital Management System',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: WelcomePage(),
+        ));
   }
 }
 
@@ -111,38 +117,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
-
-Future getdata() async {
-  Uri url = Uri.parse(global.baseUrl + "/login");
-  var response = await http.get(url);
-  List data = json.decode(response.body);
-  if (data == "Fail") return;
-  Userdata ud;
-  for (var x = 0; x <= data.length; x++) {
-    ud = Userdata(
-        data[x][0].toString(),
-        data[x][1].toString(),
-        data[x][2].toString(),
-        data[x][3].toString(),
-        data[x][4].toString(),
-        data[x][5].toString(),
-        data[x][6].toString(),
-        data[x][7].toString(),
-        data[x][8].toString(),
-        data[x][9].toString(),
-        data[x][10].toString(),
-        data[x][11].toString(),
-        data[x][12].toString(),
-        data[x][13].toString(),
-        data[x][14].toString(),
-        data[x][15].toString(),
-        data[x][16].toString(),
-        data[x][17].toString(),
-        data[x][18].toString());
-    // data[x][19].toString());
-    global.ud.add(ud);
-  }
-
-  print(global.ud.toString());
 }

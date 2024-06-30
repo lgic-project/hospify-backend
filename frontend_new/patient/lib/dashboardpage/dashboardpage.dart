@@ -21,15 +21,16 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    final userProvider =
-        Provider.of<GetDataProvider>(context, listen: true).toString();
-    final data = userProvider.getAllData();
+    // final userProvider = Provider.of<PaDataProvider>(context);
+    // userProvider.getMyData();
   }
 
   // const Dashboard({Key? key, required response}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<GetDataProvider>(context, listen: true);
+    final userProvider = Provider.of<PaDataProvider>(context);
+    final data = userProvider.responseData.value;
+    print(data ?? "nai");
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -42,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
@@ -54,7 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                           SizedBox(height: 8.0),
                           Text(
-                            ("$userProvider.fname + $userProvider.lname"),
+                            data?.fname ?? "na",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 30.0),
                           ),
@@ -63,7 +64,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15.0),
+                  const SizedBox(
+                      height:
+                          15.0), // yesto const bhayo bhane error auxa remove const
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
