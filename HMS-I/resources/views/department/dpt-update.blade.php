@@ -59,7 +59,8 @@
                     <div class="fixed-table-body">
                       <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
                         <span></span>
-                    
+                        <form action="{{route('dt.update',['id' => $dpt->dpt_id])}}" method="post">  
+                        @csrf   
                         
                 <div class="form-group" >
                  <label for="dpt_name">Department Name</label>
@@ -76,9 +77,10 @@
 <div>
     <button type="submit" name="submit" class="btn btn-primary">Update</button>
 </div>
-    </div>
-    </div>
 </form>
+    </div>
+    </div>
+
                   </div>
                 </div>
               </div>

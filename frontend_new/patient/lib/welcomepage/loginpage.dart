@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import '../dashboardpage/dashboardpage.dart';
+import 'package:http/http.dart' as http;
 import '../dashboardpage/api for resetpassword/passwordresetpage.dart';
+import '../global.dart' as globals;
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Login Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: DashboardPage(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Login Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: DashboardPage(),
+//     );
+//   }
+// }
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,17 +30,38 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisible = false;
 
-  void _login() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // Handle login logic
-      String username = _usernameController.text;
-      String password = _passwordController.text;
-      print('Username: $username, Password: $password');
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => DashboardPage()));
-    }
+  void initState() {
+    _passwordVisible = false;
   }
+
+  Future<void> register(BuildContext context) async {
+    print('yeta chu hai ma');
+  }
+
+  Future<void> _login() async {
+    // if (_formKey.currentState?.validate() ?? false) {
+    print('func vitra aye');
+
+    Uri url = Uri.parse('http://127.0.0.1:8000/api/login');
+    var response = await http.post(url, body: {
+      "email": _usernameController.text,
+      "password": _passwordController.text,
+    });
+
+    // Handle login logic
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+    print('Username: $username, Password: $password');
+    print(response.body);
+    Navigator.push(
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(builder: (context) => DashboardPage()));
+  }
+
+  // }
 
   void _navigateToResetPassword() {
     Navigator.push(
@@ -46,8 +69,6 @@ class _LoginPageState extends State<LoginPage> {
       MaterialPageRoute(builder: (context) => PasswordResetPage()),
     );
   }
-
-  
 
   String? _emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -59,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     return null;
   }
+
   //  (validation ko lagi)
   String? _passwordValidator(String? value) {
     if (value == null || value.isEmpty) {

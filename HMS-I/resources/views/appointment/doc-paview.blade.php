@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Department Create</title>
+    <title>Doctor Update</title>
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="description">
-                        <h2>Create Department Form</h2>
+                        <h2>Doctor Account View</h2>
                     </div>
 
                     <div class="fresh-table full-color-blue">
@@ -47,7 +47,7 @@
                       <div class="fixed-table-toolbar">
                         <div class="bs-bars pull-left">
                     <div class="toolbar">
-                      <a href="{{route('dashm')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
+                      <a href="{{route('dc.dash')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
                    </div>
                       </div>
                      </div>
@@ -59,25 +59,26 @@
                     <div class="fixed-table-body">
                       <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
                         <span></span>
-                    
-                  <form action="{{route('dt.save')}}" method="post">  
-                    @csrf    
-                <div class="form-group" >
-                 <label for="dpt_name">Department Name</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="dpt_name" value="" >
+                       
+                        
+                            <div class="form-group" >
+                 <label for="fname">First Name</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="fname" value="{{old('fname', $apt->patient->fname)}}" >
             </div>
             <div class="form-group">
-            <label for="dpt_des">Description</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="dpt_des" value="" required autofocus autocomplete="lname" >
+                <label for="pst">Problem Statement</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="pst" value="{{old('pst', $apt->pst)}}"  >
             </div>
-           
-           
-
+            <div class="form-group">
+                <label for="treat" >Treatment</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="treat" value="{{old('treat', $apt->treat)}}"  >
+            </div>
+            <div class="form-group">
+                <label for="pres" >Medications</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="pres" value="{{old('pres', $apt->pres)}}"  >
+            </div>
+            
    
-<div>
-    <button type="submit" name="submit" class="btn btn-primary">Save</button>
-</div>
-</form>
     </div>
     </div>
 

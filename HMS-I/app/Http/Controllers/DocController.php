@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\File;
 use App\Models\DoctorModel;
+use App\Models\User;
 use App\Models\DepartmentModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 class DocController extends Controller
 {
     public function index(){
@@ -71,8 +73,8 @@ class DocController extends Controller
     }
     public function dview(){
         $doctor  =  DoctorModel::all();
-        
-        $data = compact('doctor');
+        $dpt =  DepartmentModel::all();
+        $data = compact('doctor','dpt');
         return view ('doctor.doc-view')->with($data);
          
     }
@@ -134,11 +136,53 @@ public function dupdate(Request $request , $id){
     $doctor ->gender =$request['gender'];
     $doctor ->age =$request['age'];
     $doctor ->email =$request['email'];
-    $doctor ->password =md5($request['password']);
+    $doctor ->password =hash::make($request['password']);
+    $doctor ->speciality =$request['speciality'];
+    $doctor ->exp =$request['exp'];
+    $doctor ->qual =$request['qual'];
+    $doctor ->dpt_id =$request['dt_id'];
+ 
    // $doctor->img1=$path.$filename; 
+   $dpt = new DepartmentModel;
+   $dpt ->dc_id=$id; 
+    $dpt -> save();
+
+   $user = new User;
+   $user ->fname =$request['fname'];
+    $user ->lname =$request['lname'];
+   $user ->email=$request['email'];
+
+   $user ->password =hash::make($request['password']);
+   
+   $user ->save();
+  
     
     $doctor ->save();
     return redirect('/doctor/view');
+
+}
+public function profile($id){
+    $doctor  = DoctorModel::where('dc_id', $id)->first();
+    $dpt =  DepartmentModel::with(['doctor'])->where('dc_id', $id)->get();
+   
+    if (is_null($doctor )){
+        return redirect('/doctor/view');
+        // $patient = Patientacc::where('pa_id', $id)->delete();
+    }
+    else{
+     
+        
+        $data = compact('doctor','dpt');
+        return view('doctor.doc-profile')->with( $data);
+    }
+}
+public function filter(Request $request){
+    $search = $request->input('request');
+    Log::info('Filter request received with search value: ' . $search);
+    $doctor = DoctorModel::where('dpt_id', $search)->get(['dc_id','fname']);
+   // $dpt =  DepartmentModel::where('dpt_id',$search)->get();
+    //Log::info('Query executed. Number of results: ' . $dpt->count());
+    return response()->json($doctor);
 
 }
 }

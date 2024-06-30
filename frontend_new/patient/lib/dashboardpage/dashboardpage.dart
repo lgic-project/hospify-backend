@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_new/Controller/AccController.dart';
+import 'package:frontend_new/dashboardpage/searchpage.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'api for profile/profile.dart';
 import 'api for medical record/medicalrecordpage.dart';
 import 'prescriptionpage.dart';
 import 'search.dart';
+import '../global.dart';
 import 'profile/patientpage.dart';
 import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
+// import 'loginpage.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: DashboardPage(),
-  ));
+class DashboardPage extends StatefulWidget {
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class DashboardPage extends StatelessWidget {
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    final userProvider =
+        Provider.of<GetDataProvider>(context, listen: true).toString();
+    final data = userProvider.getAllData();
+  }
+
+  // const Dashboard({Key? key, required response}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<GetDataProvider>(context, listen: true);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -39,8 +54,9 @@ class DashboardPage extends StatelessWidget {
                           ),
                           SizedBox(height: 8.0),
                           Text(
-                            'Ram',
-                            style: TextStyle(color: Colors.white, fontSize: 30.0),
+                            ("$userProvider.fname + $userProvider.lname"),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 30.0),
                           ),
                           SizedBox(height: 8.0),
                         ],
@@ -66,7 +82,8 @@ class DashboardPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SearchPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => SearchPage()),
                             );
                           },
                         ),
@@ -77,7 +94,8 @@ class DashboardPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProfilePage()),
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()),
                           );
                         },
                       ),
@@ -122,7 +140,7 @@ class DashboardPage extends StatelessWidget {
               }).toList(),
             ),
             // Our Services Section
-            
+
             Container(
               padding: const EdgeInsets.only(right: 20, top: 10),
               child: Column(
@@ -131,19 +149,22 @@ class DashboardPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildProfileOption('Appointment', Icons.calendar_today, Colors.purple, context),
+                      _buildProfileOption('Appointment', Icons.calendar_today,
+                          Colors.purple, context),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildProfileOption('Medical Record', Icons.medical_services, Colors.blue, context),
+                      _buildProfileOption('Medical Record',
+                          Icons.medical_services, Colors.blue, context),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildProfileOption('Prescription', Icons.description, Colors.green, context),
+                      _buildProfileOption('Prescription', Icons.description,
+                          Colors.green, context),
                     ],
                   ),
                 ],
@@ -163,18 +184,27 @@ class DashboardPage extends StatelessWidget {
                     shrinkWrap: true,
                     crossAxisCount: 3,
                     children: const [
-                      ServiceItem(title: 'General practice', icon: Icons.local_hospital),
-                      ServiceItem(title: 'Internal Medicine', icon: Icons.healing),
+                      ServiceItem(
+                          title: 'General practice',
+                          icon: Icons.local_hospital),
+                      ServiceItem(
+                          title: 'Internal Medicine', icon: Icons.healing),
                       ServiceItem(title: 'Cardiology', icon: Icons.favorite),
                       ServiceItem(title: 'Psychiatric', icon: Icons.psychology),
                       ServiceItem(title: 'Pediatrics', icon: Icons.child_care),
                       ServiceItem(title: 'Dermatology', icon: Icons.face),
-                      ServiceItem(title: 'Gynaecology', icon: Icons.pregnant_woman),
-                      ServiceItem(title: 'Gastroenterology', icon: Icons.lunch_dining),
-                      ServiceItem(title: 'Orthopedic', icon: Icons.accessibility),
-                      ServiceItem(title: 'Nephrology', icon: Icons.water_damage),
+                      ServiceItem(
+                          title: 'Gynaecology', icon: Icons.pregnant_woman),
+                      ServiceItem(
+                          title: 'Gastroenterology', icon: Icons.lunch_dining),
+                      ServiceItem(
+                          title: 'Orthopedic', icon: Icons.accessibility),
+                      ServiceItem(
+                          title: 'Nephrology', icon: Icons.water_damage),
                       ServiceItem(title: 'Hematology', icon: Icons.bloodtype),
-                      ServiceItem(title: 'Psychiatric', icon: Icons.psychology_outlined),
+                      ServiceItem(
+                          title: 'Psychiatric',
+                          icon: Icons.psychology_outlined),
                     ],
                   ),
                 ],
@@ -206,7 +236,8 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileOption(String title, IconData icon, Color color, BuildContext context) {
+  Widget _buildProfileOption(
+      String title, IconData icon, Color color, BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -273,9 +304,11 @@ class ServiceItem extends StatelessWidget {
         );
       },
       child: Column(
-        children:[
-          Icon(icon, size: 50, color:Colors.blue),
-          const SizedBox(height: 8.0,),
+        children: [
+          Icon(icon, size: 50, color: Colors.blue),
+          const SizedBox(
+            height: 8.0,
+          ),
           Text(title, textAlign: TextAlign.center),
         ],
       ),

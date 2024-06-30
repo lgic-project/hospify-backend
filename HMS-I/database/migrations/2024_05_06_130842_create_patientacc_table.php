@@ -28,8 +28,7 @@ return new class extends Migration
             $table->string('img1')->nullable();
             $table->string('role',20)->nullable();
             $table->foreignId('id')->constrained('users')->onDelete('cascade');
-            $table->bigInteger('dpt_id')->nullable()->constrained()->onDelete('cascade');   
-            $table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp');
+           
             $table->rememberToken();   
             $table->timestamps();
         });

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\API;
 use App\Models\DoctorModel;
 use App\Models\PatientModel;
+use App\Models\AdminModel;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class UserApi extends Controller
 {
@@ -63,5 +68,81 @@ class UserApi extends Controller
 
     return response()->json($result,$rescode);
 
-    }
+    } 
+
+    public function login(Request $request) {
+        $valid= Validator::make($request->all(),[
+            'email' => 'required',
+            'password' => 'required',
+           
+        ]);
+        if($valid->fails()) {   
+            $result = array('status' => false, 'message' =>"Validation Wrong",
+            'error_message' => $valid->errors());
+            return response()->json($result,400);}
+
+        $credentials = $request->only('email', 'password');
+        
+       
+        if (Auth::attempt($credentials)) {
+            
+            session(['fname'=> Auth::user()->fname]);
+            session(['sid'=> Auth::user()->id]);
+            Log::info('Session data after login:', session()->all());
+            //session()->only(['sname'=> Auth::user()->name]);
+           $user = User::find(auth()->user()->id);
+           $userid = $user->id;
+           $data = PatientModel::where('id', $userid)->first();
+           $result = array('status' => true, 'message' =>"Your data", 'value'=>$data);
+        $rescode =200;
+        return response()->json($result,$rescode);
+            
+        } else {
+            // Authentication failed, log and redirect back with error
+            Log::info('Authentication failed for email: ' . $credentials['email']);
+
+           return response()->json(['status' => false, 'message' =>"User not found",404]);;
+        }
 }
+public function redirect(){
+    
+        $redirect ='';
+         if (Auth::check()) {
+             $role = Auth::user()->role;
+         Log::info('User role: ' . $role);
+             switch (Auth::user()->role) {
+                 case 'Doctor':
+                    $did = session('sid');
+                    $user = User::find($did);
+                    $dcid = $user->doctor->dc_id;
+                    //$id = DoctorModel::where('dc_id', $did)->first();
+                    session(['sid' => $dcid]);
+                    Log::info('before redirect',['dc_id'=>$dcid]);
+                     $redirect = '/doctordash';
+                     break;
+               
+                 case 'Patient':
+                    $did = session('sid');
+                    $id = PatientModel::where('pa_id', $did)->first();
+                    session(['sid' => $id]);
+                    Log::info('before redirect',[$id]);
+                     $redirect = '/patientdash';
+                     break;
+                 case 'Admin':
+                    $did = session('sid');
+                    $id = AdminModel::where('a_id', $did)->first();
+                    session(['sid' => $id]);
+                    Log::info('before redirect',[$id]);
+                     $redirect = '/ddash';
+                     break;
+                     
+             } 
+             return $redirect;
+         }
+         return view('auth.failed');
+       
+    }
+
+}
+
+

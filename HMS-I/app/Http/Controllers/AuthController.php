@@ -70,7 +70,7 @@ class AuthController extends Controller
                 // Authentication failed, log and redirect back with error
                 Log::info('Authentication failed for email: ' . $credentials['email']);
 
-                return back()->withErrors(['error' => 'Invalid email or password.']);
+                return back()->withInput()->with(['message' => 'Invalid email or password.']);
             }
         }
     public function root(){
@@ -85,14 +85,14 @@ class AuthController extends Controller
          if (Auth::check()) {
              $role = Auth::user()->role;
          Log::info('User role: ' . $role);
-             switch (Auth::user()->role) {
+             switch (Auth::user()->role) { 
                  case 'Doctor':
                     $did = session('sid');
                     $user = User::find($did);
                     $dcid = $user->doctor->dc_id;
                     //$id = DoctorModel::where('dc_id', $did)->first();
                     session(['sid' => $dcid]);
-                    Log::info('before redirect',['dcid'=>$dcid]);
+                    Log::info('before redirect',['dc_id'=>$dcid]);
                      $redirect = '/doctordash';
                      break;
                
@@ -111,7 +111,7 @@ class AuthController extends Controller
                      $redirect = '/ddash';
                      break;
                      
-             }
+             } 
              return $redirect;
          }
          return view('auth.failed');
@@ -169,6 +169,11 @@ class AuthController extends Controller
         return view('auth.authcreate');
     }
 
-
+    public function logout(){
+        if (Session::has('sid')){
+            session::pull('sid');
+            return redirect ('/auth');// not working
+        }
+    }
 
 }

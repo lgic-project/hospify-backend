@@ -19,7 +19,7 @@ class AppointmentModel extends Model
       'status',
         'pres', //medication
     ];
-  
+   
     
     public function doctor() {
       return $this->belongsTo(DoctorModel::class, 'dc_id');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PatientModel;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\md5;
@@ -46,9 +47,17 @@ class PatientApiController extends Controller
         $patient->gender =$request['gender'];
         $patient->age =$request['age'];
         $patient->email =$request['email'];
-        $patient->password =md5($request['password']);
-      
-        $patient->role =$request['role'];
+        $patient->password =hash::make($request['password']);
+       $patient->role =$request['role'];
+       
+          $user = new User;
+          $user ->fname =$request['fname'];
+           $user ->lname =$request['lname'];
+          $user ->email=$request['email'];
+
+          $user ->password =hash::make($request['password']);
+    
+        $user ->save();
         $patient->save();
         
         if($patient->pa_id){

@@ -24,14 +24,14 @@ return new class extends Migration
             $table->string('password');
             $table->string('img1')->nullable();
             $table->string('role',20)->nullable();
-            $table->BigInteger('dpt_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp');
+            //$table->foreign('dpt_id')->references('dpt_id')->on('departmenttyp')->onDelete('cascade');
+            $table->foreignId('dpt_id')->nullable()->constrained('departmenttyp')->onDelete('cascade');
             $table->text('speciality')->nullable();
             $table->text('exp')->nullable();
             $table->foreignId('id')->constrained('users')->onDelete('cascade');
             $table->text('qual')->nullable();//qualifiaction
-           $table-> time('starttime')->DEFAULT( '09:00:00');
-            $table->time('endtime')->DEFAULT ('17:00:00');
+            $table-> time('starttime')->default( '09:00:00');
+            $table->time('endtime')->default('17:00:00');
             $table->rememberToken();   
             $table->timestamps();
         });

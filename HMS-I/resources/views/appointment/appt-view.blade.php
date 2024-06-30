@@ -92,8 +92,11 @@
 
                                 </a>
 
-                                <a href="{{url('/doctor/edit/')}}/{{$at->apt_id}}">
+                                <a href="{{url('/sc-see2')}}/{{$at->apt_id}}">
                                 <button class="btn btn-primary">Edit</button>
+                              </a>
+                              <a href="{{url('/sc-status')}}/{{$at->apt_id}}">
+                                <button class="btn btn-primary">Done</button>
                               </a>
                               </td>
                             </tr>

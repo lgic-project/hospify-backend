@@ -22,6 +22,7 @@ class DoctorModel extends Model
         'email',
         'password',
         'img1',
+        'dpt_id',
         'role',
         'speciality',
         'qual',
@@ -40,4 +41,8 @@ class DoctorModel extends Model
     {
         return $this->belongsTo(User::class,'id');
     }
+    public function departmenttyp() {
+        return $this->belongsTo(DepartmentModel::class, 'dpt_id');
+    }
+
 }

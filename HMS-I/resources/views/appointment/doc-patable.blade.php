@@ -6,12 +6,12 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Doctor Table</title>
+    <title>All Appointment Table</title>
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="/assets/css/table.css" rel="stylesheet" />
+    <link href="assets/css/table.css" rel="stylesheet" />
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -20,8 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 </head>
@@ -40,7 +39,7 @@
                       <div class="fixed-table-toolbar">
                         <div class="bs-bars pull-left">
                     <div class="toolbar">
-                      <a href="{{route('dashm')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
+                      <a href="{{route('dc.dash')}}" id="alertBtn" class="btn btn-default">Dashboard</a>
                    </div>
                       </div>
                      <div class="columns columns-right pull-right btn-group pull right">
@@ -50,16 +49,10 @@
 
                      
 
-                   <div class="pull-right search input-group" >
+                   <div class="pull-right search input-group">
                     <form action="">
-                     <select class="form-control search-input" id="search">
-                      @foreach ($dpt as $dt )
-                      <option value="{{ $dt->dpt_id}}">{{$dt->dpt_name}}</option>
-                      @endforeach
                      
-                      
-                     </select>
-                    
+                    <input class="form-control search-input" type="search" id="search" autocomplete="off" placeholder="Search" >
                      <div class="columns columns-right pull-right btn-group pull right">
                     <!-- <button  class="btn btn-default"  name="search">Search</button></div> form submit button -->
                     </form>
@@ -75,42 +68,38 @@
                       <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
                         <span></span>
                       </div>
-                      <div id="container">
                         <table id="fresh-table" class="table">
                             <thead>
-                                <th data-field="id">ID</th>
-                                <th data-field="name" data-sortable="true">First Name</th>
-
+                                
+                                <th data-field="name" data-sortable="true">Doctor Name</th>
+                                <th data-field="name" data-sortable="true">Patient Name</th>
                                 <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th>
                             </thead>
                             <tbody>
                             <tr>
-                            @foreach($doctor as $doctors)
+                            @foreach($apt as $at)
                            
                               <tr>
-                                <td>{{ $doctors->dc_id }}</td>
-                                <td>{{ $doctors->fname }}</td>
+                              
+                                <td>{{ $at->doctor->fname }}</td>
+                                <td>{{ $at->patient->fname }}</td>
                                 
                                 <td>
-                                <a href="{{url('/doctor/delete/')}}/{{$doctors->dc_id}} ">
+                                <a href="{{url('/doctor/delete/')}}/{{$at->apt_id}} ">
                                 <button class="btn btn-danger">Delete</button>
 
                                 </a>
 
-                                <a href="{{url('/doctor/edit/')}}/{{$doctors->dc_id}}">
-                                <button class="btn btn-primary">Edit</button>
+                                <a href="{{url('/sc-paview')}}/{{$at->apt_id}}">
+                                <button class="btn btn-primary">View</button>
                               </a>
-                              <a href="{{url('/doctor/profile/')}}/{{$doctors->dc_id}} ">
-                                <button class="btn btn-danger">View </button>
-
-                                </a>
+                            
                               </td>
                             </tr>
                                
                               @endforeach
                             </tbody>
                         </table>
-                        </div>
                     </div>
                   </div>
                 </div>
@@ -119,52 +108,6 @@
           </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>$(document).ready(function(){
-    $("#search").off().on("change", function(){
-        var value = $(this).val();
-        $.ajax({
-            url: "{{ route('filter') }}",
-            type: "POST",
-            data: {
-                request: value,
-                _token: "{{ csrf_token() }}"
-            },
-            beforeSend: function(){
-                $("#container").html("<span>Working...</span>");
-            },
-            success: function(data){
-                var html = '';
-                $.each(data, function(index, doctor){
-                    html += '<tr>';
-                    console.log(doctor.dc_id);
-                    console.log(doctor.fname);
-                    html += '<td>' + doctor.dc_id + '</td>';
-                    html += '<td>' + doctor.fname + '</td>';
-                    html += '<td>';
-                    html += '<a href="{{ url('/doctor/delete/') }}/' + doctor.dc_id + '">';
-                    html += '<button class="btn btn-danger">Delete</button>';
-                    html += '</a>';
-                    html += '<a href="{{ url('/doctor/edit/') }}/' + doctor.dc_id + '">';
-                    html += '<button class="btn btn-primary">Edit</button>';
-                    html += '</a>';
-                    html += '<a href="{{ url('/doctor/profile/') }}/' + doctor.dc_id + '">';
-                    html += '<button class="btn btn-danger">View</button>';
-                    html += '</a>';
-                    html += '</td>';
-                    html += '</tr>';
-                });
-                $("#fresh-table tbody").html(html); // Populate table body
-                console.log(html);
-            },
-            error: function(xhr, status, error){
-                console.error("AJAX Error: " + status + error);
-                $("#container").html("<span>An error occurred. Please try again.</span>");
-            }
-        });
-    });
-});
-</script>
 </body>
                        
 </html>

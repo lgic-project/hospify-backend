@@ -1,10 +1,14 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:frontend_new/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+import 'dart:developer' as devLog;
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -19,7 +23,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   DateTime? _selectedDate;
   String? _selectedGender;
@@ -39,34 +44,59 @@ class _RegistrationPageState extends State<RegistrationPage> {
       String imagePath = _selectedImage?.path ?? '';
 
       // Create the request payload
-      var request = http.MultipartRequest('POST', Uri.parse('https://your-api-endpoint.com/register'));
-      request.fields['firstName'] = firstName;
-      request.fields['lastName'] = lastName;
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('http://127.0.0.1:8000/api/usrreg'));
+      request.fields['fname'] = firstName;
+      request.fields['lname'] = lastName;
       request.fields['pnm'] = pnm;
       request.fields['age'] = age;
       request.fields['dob'] = dob;
       request.fields['gender'] = gender;
       request.fields['email'] = email;
       request.fields['password'] = password;
-      request.fields['confirmPassword'] = confirmPassword;
-
+      request.fields['password_confirmation'] = confirmPassword;
+      request.fields['role'] = 'Patient';
       if (imagePath.isNotEmpty) {
-        request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+        request.files
+            .add(await http.MultipartFile.fromPath('image', imagePath));
       }
 
-      // Send the request and handle the response
       var response = await request.send();
-      if (response.statusCode == 200) {
-        final responseBody = await response.stream.bytesToString();
-        final responseData = json.decode(responseBody);
-        print('Registration successful: ${responseData['message']}');
-        // Handle successful registration (e.g., navigate to another page)
-      } else {
-        final responseBody = await response.stream.bytesToString();
-        final responseData = json.decode(responseBody);
-        print('Registration failed: ${responseData['error']}');
-        // Handle registration failure (e.g., show an error message)
+
+      // Log the status code
+      print('Response status code: ${response.statusCode}');
+
+      // Convert the response to a string and log it
+      var responseBody = await response.stream.bytesToString();
+      print('Response body: $responseBody');
+
+      // Parse the response body as JSON
+      var responseData = jsonDecode(responseBody);
+
+      var responStatus = response.statusCode;
+
+      print('scaffold if agadi');
+      if (responStatus == 200) {
+        print('scaffold khulyo');
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              duration: const Duration(seconds: 4),
+              content: Text('Successfully Registered')),
+        );
+        Navigator.push(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()));
+      } else if (response.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: Colors.redAccent,
+              duration: const Duration(seconds: 4),
+              content: Text('Email or Phone Number already registered')),
+        );
       }
+      print('scaffold outside iff');
     }
   }
 
@@ -80,7 +110,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _dobController.text = '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+        _dobController.text =
+            '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
       });
     }
   }
@@ -98,6 +129,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registration Page'),
+
+        // ignore: avoid_prin
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -120,7 +153,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       const SizedBox(width: 10),
                       const Text(
                         'Registration',
-                        style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 40.0, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
                       ),
                     ],

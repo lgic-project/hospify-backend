@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('appointment', function (Blueprint $table) {
             $table->id('apt_id');
-            $table->date('aptdate');
-            $table->time('apttime');
+            $table->date('aptdate')->nullable();
+            $table->time('apttime')->nullable();
             $table->text('pst')->nullable();
             $table->text('treat')->nullable();
             $table->text('pres')->nullable();

@@ -20,41 +20,7 @@
     color: red; /* Example: Change text color to red for booked slots */
 }
     </style>
-    <div ><a href="{{route('pa.home')}}">
-        <button class="btn btn-primary"> Home</button>
-        </a></div>
-    <div ><a href="{{route('pa.add')}}">
-        <button class="btn btn-primary"> Add patients</button>
-        </a></div>
-    <div >
-        <a href="{{route('pa.view')}}">
-        <button class="btn btn-primary"> Patient View</button>
-        </a>
-    </div> 
     
-    <div ><a href="{{route('dc.add')}}">
-        <button class="btn btn-primary"> Add Doctor</button>
-        </a></div>
-    <div >
-        <a href="{{route('dc.view')}}">
-        <button class="btn btn-primary">view doc</button>
-        </a>
-    </div> 
-    <div >
-        <a href="{{route('nr.add')}}">
-        <button class="btn btn-primary">Add Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('nr.view')}}">
-        <button class="btn btn-primary">View Nurse</button>
-        </a>
-    </div> 
-    <div > 
-        <a href="{{route('sc')}}">
-        <button class="btn btn-primary">Schedule</button>
-        </a>
-    </div>
 </nav>
    
 </nav>
@@ -101,11 +67,25 @@
     $sname = session()->get('fname');
     $pid = session()->get('pid');
 @endphp
-           
-                <input id="pa_id" class="block mt-1 w-full" type="text" name="pa_id" value=" {{$pid}}" required autofocus autocomplete="" hidden >
+                <div class="form-control">
+                    <label >Patientaa</label>
+                <input id="pa_id" class="block mt-1 w-full" type="text" name="pa_id" value="" required autofocus autocomplete="" >
       
 
                 <h1> {{$sname }} {{$pid}}</h1>
+                </div>
+               <div class="form-group" >
+                 <label for="treat">Treatments</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="treat" value="{{old('treat')}}" >
+            </div>
+            <div class="form-group" >
+                 <label for="pres">Medication</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="pres" value="{{old('pres')}}" >
+            </div>
+            <div class="form-group" >
+                 <label for="pres">Problem Statement</label>
+                <input id="" class="block mt-1 w-full black-text" type="text" name="pst" value="" >
+            </div>
 <div>
     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 </div>

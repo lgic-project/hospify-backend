@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Doctor Account View</title>
+    <title>Doctor Update</title>
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
@@ -59,8 +59,7 @@
                     <div class="fixed-table-body">
                       <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
                         <span></span>
-                        <form action="{{route('dc.update',['id' => $doctor->dc_id])}}" method="post">  
-                        @csrf  
+                       
                         
                             <div class="form-group" >
                  <label for="fname">First Name</label>
@@ -101,12 +100,13 @@
                 <input id="" class="block mt-1 w-full black-text" type="number" name="age" value="{{old('age', $doctor->age)}}" required autofocus autocomplete="age">
             </div>
             <div class="form-group">
-            <label> Select Department</label>
+            <label>Department</label>
                 <select class="form-control" name="dt_id" >
-                    @foreach ($dpt as $dp )
-                    <option value="{{ $dp->dpt_id}}">{{$dp->dpt_name}}</option>
                     
-                    @endforeach
+                    <option  value=" " >{{old('dpt_id', $doctor->departmenttyp->dpt_name)}}</option>
+                   
+                    
+                   
                 </select>
             </div>
             <div class="form-group">
@@ -127,32 +127,7 @@
                 <label for="email" >Email</label>
                 <input id="email" class="block mt-1 w-full black-text" type="email" name="email" value="{{old('email', $doctor->email)}}" required autocomplete="username" >
             </div>
-
-            <div class="form-group">
-                <label for="password" value="" >Password</label>
-                <input id="password" class="block mt-1 w-full black-text" type="password" name="password">
-                    <span class="text-danger">
-                        @error('password')
-                        {{$message}}
-                        @enderror
-                    </span>
-            </div>
-
-            <div class="form-group">
-                <label for="password_confirmation" value="">Confirm Password</label>
-                <input id="password_confirmation" class="block mt-1 w-full black-text" type="password" name="password_confirmation" >
-                <span>
-                    
-                        @error('password_confirmation')
-                        {{$message}}
-                        @enderror
-                    </span>
-            </div>
-           
-            <div>
-                 <button type="submit" name="submit" class="btn btn-primary">Update</button>
-            </div>
-</form>
+   
     </div>
     </div>
 

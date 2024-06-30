@@ -43,3 +43,6 @@ Route::post("schb",[SchApiController::class,'scb']);//book appointment api
 Route::get("dptview",[DepartmentControllerApi::class,'view']);
 
 Route::post("usrreg",[UserApi::class,'create']);//use this
+
+Route::post("login",[UserApi::class,'login']);
+Route::post("search/{id}",[DepartmentControllerApi::class,'search']);
