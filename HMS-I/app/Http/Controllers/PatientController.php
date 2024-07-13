@@ -10,6 +10,7 @@ use Resourses\Views\hm;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\DepartmentModel;
+use App\Models\User;
 class PatientController extends Controller
 { 
     public function padash(){
@@ -203,13 +204,22 @@ public function paupdate(Request $request , $id){
     $patient->gender =$request['gender'];
     $patient->weight =$request['weight'];
     $patient->age =$request['age'];
-    $patient->email =$request['description'];
+    $patient->email =$request['email'];
     $patient->mh =$request['mh'];
-    $patient->dpt_id =$request['dt-id'];
+    //$patient->dpt_id =$request['dt-id'];
    // $patient->img1=$path.$filename;
     $patient->password =md5($request['password']);
     $patient->status =$request['status'];
     $patient->save();
+
+    $user = new User;
+   $user ->fname =$request['fname'];
+    $user ->lname =$request['lname'];
+   $user ->email=$request['email'];
+
+   $user ->password =hash::make($request['password']);
+   
+   $user ->save();
     
    // return redirect('/patient/view');
    return redirect('/patient/view')->with('success', 'Patient updated successfully');

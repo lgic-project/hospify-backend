@@ -23,8 +23,7 @@ class PaDataProvider with ChangeNotifier {
 
   Future<Accmodel> getAllData() async {
     try {
-      final response = await http
-          .get(Uri.parse("http:///api/paview-detail/2")); //afno ip address use
+      final response = await http.get(Uri.parse("")); //afno ip address use
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
         responseData = Accmodel.fromJson(item);

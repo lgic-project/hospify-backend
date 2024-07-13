@@ -7,9 +7,10 @@ use App\Models\DoctorModel;
 use App\Models\PatientModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\ForgotPassword;
 
-use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +62,7 @@ class AuthController extends Controller
                 
                 session(['fname'=> Auth::user()->fname]);
                 session(['sid'=> Auth::user()->id]);
+                session(['role'=> Auth::user()->role]);
                 Log::info('Session data after login:', session()->all());
                 //session()->only(['sname'=> Auth::user()->name]);
                 $route = $this->redirectDash();
@@ -98,16 +100,21 @@ class AuthController extends Controller
                
                  case 'Patient':
                     $did = session('sid');
-                    $id = PatientModel::where('pa_id', $did)->first();
+                    $user = User::find($did);
+                    $id = $user->patient->pa_id;
+                    // $id = PatientModel::where('pa_id', $did)->first();
                     session(['sid' => $id]);
                     Log::info('before redirect',[$id]);
                      $redirect = '/patientdash';
                      break;
                  case 'Admin':
                     $did = session('sid');
-                    $id = AdminModel::where('a_id', $did)->first();
-                    session(['sid' => $id]);
-                    Log::info('before redirect',[$id]);
+                    $user = User::find($did);
+                    $adid = $user->admin->a_id;
+                   // $id = AdminModel::where('a_id', $did)->first();
+                    Log::info('before session',[$adid]);
+                    session(['sid' => $adid]);
+                    Log::info('before redirect',[$adid]);
                      $redirect = '/ddash';
                      break;
                      
@@ -170,10 +177,89 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        if (Session::has('sid')){
-            session::pull('sid');
-            return redirect ('/auth');// not working
-        }
+        Auth::logout();
+        Session::forget('sid');
+           // not working
+        
+        return redirect ()->route('authlogin');
     }
 
+    public function forgot(){
+        return view('auth.forgot');
+    }
+    public function forgotpost(request $request){
+        log::info('Request data:', $request->all());
+        $user = User::where('email', $request->email)->first();
+        //log::info('Request data:', [$user]);
+        if($user){
+            $user->remember_token= Str::random(40);
+            $user->save();
+            $formdata= [ 
+                'token'=> $user->remember_token,
+                'user' => $user];
+                Log::info('before sending mail ' ,[ $formdata]);
+            Mail::to($request->email)->send(new ForgotPassword($formdata));
+            return redirect()->back()->with('message', "Check your mail for reset password link");
+
+    }
+    else{
+        return redirect()->back()->with('message', 'Email not found');
+    }
+    }
+    // public function forgotpost(request $request){
+    //     $user = User::where('email', $request->email)->first();
+    //     try {
+    //         Log::info('Attempting to send email to: ' . $user->email);
+    //         Mail::to($user->email)->send(new ForgotPassword($user));
+    //         Log::info('Password reset email sent successfully.');
+    //     } catch (\Exception $e) {
+    //         Log::error('Error sending password reset email: ' . $e->getMessage());
+    //         return redirect()->back()->with('error', 'Error sending password reset email.');
+    //     }
+        
+    // }
+
+    public function admin($id){
+        $admin  = AdminModel::where('a_id', $id)->first();
+        
+       if (is_null($admin )){
+           return redirect()->back();
+           // $patient = Patientacc::where('pa_id', $id)->delete();
+       }
+       else{
+          
+           $data = compact('admin');
+           return view('dashboard.adminpro')->with( $data);
+       }
+
+    } 
+    public function adminup(Request $request , $id){
+        dd($request);
+        $admin  = AdminModel::find($id); 
+        dd($admin);
+   
+    $admin ->fname =$request['fname'];
+    $admin ->lname =$request['lname'];
+    $admin ->address =$request['address'];
+    $admin ->city =$request['city'];
+    $admin ->pnm =$request['pnm'];
+    $admin ->gender =$request['gender'];
+    $admin ->age =$request['age'];
+    $admin ->role =$request['role'];
+    $admin ->email =$request['email'];
+    $admin ->password =hash::make($request['password']);
+    dd($admin);
+    //$admin->save();
+
+    $user = User::find($id);
+    $user ->fname =$request['fname'];
+    $user ->lname =$request['lname'];
+    $user ->email =$request['email'];
+    $user ->password =hash::make($request['password']);
+   
+    $user->save();
+    
+    //return redirect('/ddash');
+
+    }
 }

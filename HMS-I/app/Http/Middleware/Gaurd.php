@@ -25,7 +25,7 @@ class Gaurd
         $user = Auth::user();
         
         // Check if the user is authenticated and has either the 'doctor' or 'patient' role
-        if ($user && in_array($user->role, ['Doctor', 'Patient'])) {
+        if ($user && in_array($user->role, ['Doctor', 'Patient','Admin'])) {
             return $next($request);
         }
         

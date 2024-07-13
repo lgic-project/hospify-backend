@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Patient Update</title>
+    <title>Admin Update</title>
 
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="description">
-                        <h2>Update Form</h2>
+                        <h2> Admin profile update</h2>
                     </div>
 
                     <div class="fresh-table full-color-blue">
@@ -57,59 +57,56 @@
 
                     </div>
                     <div class="fixed-table-body">
-                      <div class="fixed-table-loading table table-hover table-striped" style="top:57px;">
-                        <form method="POST" action="{{route('pa.update',['id'=>$patient->pa_id])}}">
-                            @csrf   
+                      <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
+                      <form action="{{route('admin.update',['id' => $admin->a_id])}}" method="post"> 
                         <span></span>
-                    
+                       
                         
                             <div class="form-group" >
                  <label for="fname">First Name</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="fname" value="{{old('fname', $patient->fname)}}" >
+                <input id="" class="block mt-1 w-full black-text" type="text" name="fname" value="{{old('fname', $admin->fname)}}" >
             </div>
             <div class="form-group">
                 <label for="lname">Last Name</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="lname" value="{{old('lname', $patient->lname)}}" >
+                <input id="" class="block mt-1 w-full black-text" type="text" name="lname" value="{{old('lname', $admin->lname)}}" >
             </div>
             <div class="form-group">
                 <label for="address" >Address</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="address" value="{{old('address', $patient->address)}}" >
+                <input id="" class="block mt-1 w-full black-text" type="text" name="address" value="{{old('address', $admin->address)}}"  >
             </div>
             <div class="form-group">
                 <label for="city" >City</label>
-                <input id="" class="block mt-1 w-full black-text" type="text" name="city" value="{{old('city', $patient->city)}}"  >
+                <input id="" class="block mt-1 w-full black-text" type="text" name="city" value="{{old('city', $admin->city)}} " >
             </div>
             <div class="form-group">
                 <label for="pnm" >Phone number</label>
-                <input id="" class="block mt-1 w-full black-text" type="number" name="pnm" value="{{old('pnm', $patient->pnm)}}"  >
+                <input id="" class="block mt-1 w-full black-text" type="number" name="pnm" value="{{old('pnm', $admin->pnm)}}">
             </div>
             <div class="form-group">
             <label>Gender:</label><br>
             <input type="radio" id="male" name="gender" value="M" 
-        {{$patient->gender=="M"? "checked":""}}>
+        {{$admin->gender=="M"? "checked":""}}>
         <label for="male">Male</label>
 
         <input type="radio" id="female" name="gender" value="F" 
-        {{$patient->gender=="F"? "checked":""}}>
+        {{$admin->gender=="F"? "checked":""}}>
         <label for="female">Female</label>
 
         <input type="radio" id="other" name="gender" value="O" 
-        {{$patient->gender=="O"? "checked":""}}>
+        {{$admin->gender=="O"? "checked":""}}>
         <label for="other">Other</label><br>
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <input id="" class="block mt-1 w-full black-text" type="number" name="age" value="{{old('age', $patient->age)}}" >
+                <input id="" class="block mt-1 w-full black-text" type="number" name="age" value="{{old('age', $admin->age)}}"  >
             </div>
-
-            <div class="form-group">
+           <div class="form-group">
                 <label for="email" >Email</label>
-                <input id="email" class="block mt-1 w-full black-text" type="email" name="email" value="{{old('email', $patient->email)}}"  >
+                <input id="email" class="block mt-1 w-full black-text" type="email" name="email" value="{{old('email', $admin->email)}}"  >
             </div>
-
             <div class="form-group">
                 <label for="password" value="" >Password</label>
-                <input id="password" class="block mt-1 w-full black-text" type="password" name="password" >
+                <input id="password" class="block mt-1 w-full black-text" type="password" name="password">
                     <span class="text-danger">
                         @error('password')
                         {{$message}}
@@ -119,7 +116,7 @@
 
             <div class="form-group">
                 <label for="password_confirmation" value="">Confirm Password</label>
-                <input id="password_confirmation" class="block mt-1 w-full black-text" type="password" name="password_confirmation"  >
+                <input id="password_confirmation" class="block mt-1 w-full black-text" type="password" name="password_confirmation" >
                 <span>
                     
                         @error('password_confirmation')
@@ -127,11 +124,9 @@
                         @enderror
                     </span>
             </div>
-
-   
-<div>
-    <button type="submit" name="submit" class="btn btn-primary">Update</button>
-</div>
+            <div>
+                 <button type="submit" name="submit" class="btn btn-primary">Update</button>
+            </div>
 </form>
     </div>
     </div>

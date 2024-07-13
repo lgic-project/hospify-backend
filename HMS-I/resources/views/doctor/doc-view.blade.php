@@ -75,14 +75,15 @@
                       <div class="fixed-table-loading table table-hover table-striped" style="top:57px;"> 
                         <span></span>
                       </div>
-                      <div id="container">
-                        <table id="fresh-table" class="table">
+                      
+                        <table id="fresh-table" class="table table-hover table-striped">
                             <thead>
+                              <tr>
                                 <th data-field="id">ID</th>
                                 <th data-field="name" data-sortable="true">First Name</th>
 
                                 <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th>
-                            </thead>
+                                </tr> </thead>
                             <tbody>
                             <tr>
                             @foreach($doctor as $doctors)
@@ -110,14 +111,30 @@
                               @endforeach
                             </tbody>
                         </table>
-                        </div>
+                      
+                        
                     </div>
+                    <div class="fixed-table-footer" ></div>
+                  </div>
+                  <div class="fixed-table-pagination" >
+                  <div class="pull-left pagination-detail" >
+                    <div class="page-list"></div>
+                  </div>
+                  <div class="pull-right pagination" >
+                    <ul class="pagination">
+                      <li class="page-item page-pre"></li>
+                      <li class="page-item active">{{$doctor->links()}}</li>
+                      
+                    </ul>
+
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+       
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>$(document).ready(function(){
@@ -166,5 +183,6 @@
 });
 </script>
 </body>
+
                        
 </html>

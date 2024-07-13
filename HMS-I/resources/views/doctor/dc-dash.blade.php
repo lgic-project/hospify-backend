@@ -11,6 +11,7 @@
 <link rel="icon" type="image/png" href="./assets/img/favicon.png">
 @php
 $fname=session()->get('fname');
+$dcid=session()->get('sid');
 
 @endphp
 <title>
@@ -107,7 +108,7 @@ $fname=session()->get('fname');
     </li>
   
 <li class="nav-item">
-  <a class="nav-link text-white " href="./profile.html">
+  <a class="nav-link text-white " href="{{route('dc.edit',['id'=>$dcid])}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10">person</i>

@@ -33,7 +33,7 @@
                         <h2>Table </h2>
                     </div>
 
-                    <div class="fresh-table full-color-orange">
+                    <div class="fresh-table full-color-blue">
 
                       <div class="bootstrap-table bootstrap3">
                       <div class="fixed-table-toolbar">

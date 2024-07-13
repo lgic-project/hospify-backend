@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<PaDataProvider>(context);
     final data = userProvider.responseData.value;
-    print(data ?? "nai");
+    print(userProvider ?? "nai");
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

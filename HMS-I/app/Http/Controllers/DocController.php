@@ -72,7 +72,7 @@ class DocController extends Controller
 
     }
     public function dview(){
-        $doctor  =  DoctorModel::all();
+        $doctor  =  DoctorModel::paginate(15);
         $dpt =  DepartmentModel::all();
         $data = compact('doctor','dpt');
         return view ('doctor.doc-view')->with($data);

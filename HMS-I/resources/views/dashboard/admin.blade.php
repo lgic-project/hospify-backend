@@ -11,7 +11,8 @@
 <link rel="icon" type="image/png" href="./assets/img/favicon.png">
 @php
 $fname=session()->get('fname');
-
+$aid=session()->get('sid');
+$role=session()->get('role');
 @endphp
 <title>
   Dashboard 
@@ -99,7 +100,7 @@ $fname=session()->get('fname');
         <i class="material-icons opacity-10"></i>
       </div>
     
-    <span class="nav-link-text ms-1">Patient</span>
+    <span class="nav-link-text ms-1">Patient </span>
   </a>
 </li>
 
@@ -146,7 +147,7 @@ $fname=session()->get('fname');
     </li>
   
 <li class="nav-item">
-  <a class="nav-link text-white " href="./profile.html">
+  <a class="nav-link text-white " href="{{route('admin.profile',['id'=>$aid])}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10">person</i>
@@ -170,7 +171,7 @@ $fname=session()->get('fname');
 
   
 <li class="nav-item"> 
-  <a class="nav-link text-white " href="./sign-up.html">
+  <a class="nav-link text-white " href="{{route('logout')}}">
     
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10">assignment</i>
@@ -217,11 +218,12 @@ $fname=session()->get('fname');
           
       </div>
         <li class="nav-item d-flex align-items-center">
-          <a href="./pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+          
+          <a href="{{route('logout')}}" class="nav-link text-body font-weight-bold px-0">
             <i class="fa fa-user me-sm-1"></i>
             
             <span class="d-sm-inline d-none">Sign Out</span>
-            
+           
           </a>
         </li>
       </ul>
